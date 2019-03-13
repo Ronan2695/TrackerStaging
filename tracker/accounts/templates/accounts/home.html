@@ -86,7 +86,6 @@ li a:hover:not(.active) {
 <h2>ADROLL</h2>
 
 <ul>
-  <li><a href="{% url 'posts:nonpd' %}">Non - PD Tickets</a></li>
   <li><a href="{% url 'posts:prupdates' %}">Process Updates</a></li>
   <li><a href="{% url 'posts:schedule' %}">Engineer Schedule</a></li>
   <li><a href="{% url 'posts:quicklinks' %}">Quick Links</a></li>
@@ -165,9 +164,9 @@ li.dropdown {
   <li><a href="{% url 'posts:schedule' %}">Engineer Schedule</a></li>
   <li><a href="{% url 'posts:quicklinks' %}">Quick Links</a></li>
   <li class="dropdown">
-    <a href="{% url 'posts:nonpd' %}"class="dropbtn">Non PD alerts</a>
+    <a href="#" class="dropbtn">Non PD alerts</a>
     <div class="dropdown-content">
-      <a href="#">Tracker</a>
+      <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
       <a href="#">Pending Tickets</a>
       <a href="#">Ticket logs</a>
     </div>
