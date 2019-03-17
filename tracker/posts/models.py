@@ -16,7 +16,7 @@ class Post(models.Model):
     Incident_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Priority = models.TextField(null=False, default='None')
     Name = models.CharField(max_length=100, null=True, blank=False, default='Please select')
-    If_Others_Please_Specify = models.CharField(max_length=100,null=False, default='NA')
+    If_Others_Please_Specify = models.CharField(max_length=100,null=False)
     Description = models.TextField(null=True, blank=False)
     Environment = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Host_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select')
@@ -24,20 +24,16 @@ class Post(models.Model):
     Source_of_Alert = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Mode_of_Alert = models.TextField(null=False, default='Manual check')
     NOC_Engineer = models.CharField(max_length=100, null=True, blank=False, default='Please select')
-    Remediation = models.TextField(null=False,default='No')
+    Remediation = models.TextField(null=True, blank=False)
     Escalated = models.TextField(null=False, default='NA')
     Escalated_Reason = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Status = models.CharField(max_length=100, null=True, blank=False, default='Resolved')
     Escalated_to = models.CharField(max_length=100, null=True, blank=False, default='NA')
     Resolved_by_Team = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Resolved_by_Engineer = models.CharField(max_length=30,null=False, default='noc')
-    Resolution = models.TextField(null=False,default='NA')
-    Comments = models.TextField(null=True,default='NA')
+    Resolution = models.TextField(null=True, blank=False)
+    Comments = models.TextField(null=True, blank=False)
 
-
-
-    def __str__(self):
-        return self.title
 
     #pub_data = models.DateTimeField()
     #image = models.ImageField(upload_to='media/')
