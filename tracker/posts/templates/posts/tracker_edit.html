@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 300%;
+  padding: 4px;
+  border: 1px solid #4C596B;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  margin-left: -25px;
+}
+
+input[type=submit] {
+  background-color: white;
+  color: #2C9FDD;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+  margin-left : 1%
+}
+
+input[type=reset] {
+  background-color: white;
+  color: #2C9FDD;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+  margin-left : 7%
+}
+
+input[type=submit]:hover {
+  background-color: #4C596B;
+}
+
+input[type=reset]:hover {
+  background-color: #4C596B;
+}
+
+.col-25 {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.col-75 {
+  float: left;
+  width: 20%;
+  margin-top: 22px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.border {
+  background-color: #EAF5FB;
+  width: 600px;
+  border: 10px solid #56B2E4;
+  padding: 2px;
+  margin: 20px;
+  margin-left : 25%
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+.boxhead a {
+    color: #2C9FDD;
+    text-decoration: none;
+}
+
+.boxhead a:hover{
+  background-color: #4C596B;
+}
+
+form {
+        width: 80%;
+        margin-left : 27%
+    }
+
+.inlineLabels ul {
+  list-style:none;
+}
+
+input {
+  margin: 0;
+  display: inline-block;
+}
+
+
+</style>
+<head>
+<body>
+<div class="border">
+<form class="site-form" action="{% url 'posts:tracker_edit' %}" method="post" enctype="multipart/form-data">
+  <div class="inlineLabels">
+  {% csrf_token %}
+  <div class="inline-container">
+  {% for field in tracker  %}
+  <div class="row">
+      <div class="col-25">
+        <b>{{ field.label_tag }}</b>
+      </div>
+      <div class="col-75">
+        </b>{{ field }} </br>
+      </div>
+  </div>
+  {% endfor %}
+  </div>
+  <div class="boxhead">
+    <input type="submit" value="Submit">&nbsp;
+      <input type="reset" value="Reset">&nbsp;
+    <button><a href="{% url 'posts:tracker_list' %}">Back to list</a></button>
+  </div>
+</form>
+</div>
+</body>
+</html>

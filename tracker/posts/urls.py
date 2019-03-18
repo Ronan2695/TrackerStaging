@@ -11,3 +11,5 @@ urlpatterns = [
     url(r'^tracker_list/', views.tracker_list, name='tracker_list'),
     url(r'^(?P<track_id>[0-9]+)/$', views.tracker_view, name="tracker_view"),
 ]
+
+#url(r'^(?P<track_id>[0-9]+)/modify$', views.modify, name="modify"),

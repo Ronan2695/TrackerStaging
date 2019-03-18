@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+<h3 style="color:Black;text-align:center">TRACKER<h3>
+
+<table style="width:100%">
+  <tr>
+    <th>Ticket number</th>
+    <th>Year</th>
+    <th>Month</th>
+    <th>Date</th>
+    <th>Shift</th>
+    <th>Day Of Week</th>
+    <th>Time</th>
+    <th>Responded Time</th>
+    <th>Time spent</th>
+    <th>Complexity</th>
+    <th>Responsible Team</th>
+    <th>False alarm</th>
+    <th>Incident Type</th>
+    <th>Priority</th>
+    <th>If Others Please Specify</th>
+    <th>Description</th>
+    <th>Environment</th>
+    <th>Host Type</th>
+    <th>Host Name</th>
+    <th>Source of Alert</th>
+    <th>Mode of Alert</th>
+    <th>NOC Engineer</th>
+    <th>Remediation</th>
+    <th>Escalated</th>
+    <th>Escalated Reason</th>
+    <th>Status</th>
+    <th>Escalated to</th>
+    <th>Resolved by Team</th>
+    <th>Resolved by Engineer</th>
+    <th>Resolution</th>
+    <th>Comments</th>
+  </tr>
+{% for track in tracks.all %}
+<tr>
+  <td><a href="{% url 'posts:tracker_view' track.id %}">{{ track.id }}<a></td>
+  <td>{{ track.Year }}</td>
+  <td>{{ track.Month }}</td>
+  <td>{{ track.Date }}</td>
+  <td>{{ track.Shift }}</td>
+  <td>{{ track.Day_Of_Week }}</td>
+  <td>{{ track.Time }}</td>
+  <td>{{ track.Responded_Time }}</td>
+  <td>{{ track.Time_spent }}</td>
+  <td>{{ track.Complexity }}</td>
+  <td>{{ track.Responsible_Team }}</td>
+  <td>{{ track.False_alarm }}</td>
+  <td>{{ track.Incident_Type }}</td>
+  <td>{{ track.Priority }}</td>
+  <td>{{ track.If_Others_Please_Specify }}</td>
+  <td>{{ track.Description }}</td>
+  <td>{{ track.Environment }}</td>
+  <td>{{ track.Host_Type }}</td>
+  <td>{{ track.Host_Name }}</td>
+  <td>{{ track.Source_of_Alert }}</td>
+  <td>{{ track.Mode_of_Alert }}</td>
+  <td>{{ track.NOC_Engineer }}</td>
+  <td>{{ track.Remediation }}</td>
+  <td>{{ track.Escalated }}</td>
+  <td>{{ track.Escalated_Reason }}</td>
+  <td>{{ track.Status }}</td>
+  <td>{{ track.Escalated_to }}</td>
+  <td>{{ track.Resolved_by_Team }}</td>
+  <td>{{ track.Resolved_by_Engineer }}</td>
+  <td>{{ track.Resolution }}</td>
+  <td>{{ track.Comments }}</td>
+</tr>
+{% endfor %}
+</table>
+<br>
+</body>
