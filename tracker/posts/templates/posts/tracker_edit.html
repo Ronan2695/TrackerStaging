@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html>
+<head>
+  {% load static %}
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="{% static 'js/toggle.js' %}"></script>
+  <title>Site</title>
+</head>
 
 <style>
 * {
@@ -108,27 +113,26 @@ input {
   margin: 0;
   display: inline-block;
 }
-
-
 </style>
-<head>
+
 <body>
 <div class="border">
 <form class="site-form" action="{% url 'posts:tracker_edit' %}" method="post" enctype="multipart/form-data">
   <div class="inlineLabels">
   {% csrf_token %}
   <div class="inline-container">
-  {% for field in tracker  %}
-  <div class="row">
-      <div class="col-25">
-        <b>{{ field.label_tag }}</b>
-      </div>
-      <div class="col-75">
-        </b>{{ field }} </br>
-      </div>
-  </div>
+  {% for field in tracker %}
+    <div class="row">
+        <div class="col-25">
+          <b>{{ field.label_tag }}</b>
+        </div>
+        <div class="col-75">
+          </b>{{ field }}</br>
+        </div>
+    </div>
   {% endfor %}
   </div>
+
   <div class="boxhead">
     <input type="submit" value="Submit">&nbsp;
       <input type="reset" value="Reset">&nbsp;

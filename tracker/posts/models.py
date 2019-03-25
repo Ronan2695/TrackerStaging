@@ -25,7 +25,7 @@ class Post(models.Model):
     Mode_of_Alert = models.TextField(null=False, default='Manual check')
     NOC_Engineer = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Remediation = models.TextField(null=True, blank=False)
-    Escalated = models.TextField(null=False, default='NA')
+    Escalated = models.CharField(max_length=100, null=False, blank=False, default='No')
     Escalated_Reason = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Status = models.CharField(max_length=100, null=True, blank=False, default='Resolved')
     Escalated_to = models.CharField(max_length=100, null=True, blank=False, default='NA')

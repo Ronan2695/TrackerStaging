@@ -54,7 +54,7 @@ th, td {
   <td><a href="{% url 'posts:tracker_view' track.id %}">{{ track.id }}<a></td>
   <td>{{ track.Year }}</td>
   <td>{{ track.Month }}</td>
-  <td>{{ track.Date }}</td>
+  <td>{{ track.Date | date }}</td>
   <td>{{ track.Shift }}</td>
   <td>{{ track.Day_Of_Week }}</td>
   <td>{{ track.Time }}</td>

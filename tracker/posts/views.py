@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.shortcuts import render, redirect, get_object_or_404, reverse, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from . import forms
@@ -37,6 +37,19 @@ def tracker_view(request, track_id):
     track = get_object_or_404(Post, pk=track_id)
     return render(request, 'posts/tracker_view.html', {'track':track})
 
+'''
+def tracker_edit(request, id):
+    session = Post.objects.get(pk=id)
+    if request.method == 'POST':
+        tracker = forms.CreateArticle(request.POST or None, instance=session)
+        if tracker.is_valid():
+            #save article to db
+            tracker.save(commit=False)
+            return redirect('posts:tracker_list')
+    else:
+        tracker = forms.CreateArticle()
+    return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
+'''
 
 
 
@@ -57,16 +70,19 @@ def tracker_view(request, track_id):
 
 
 
+'''
+def modify(request, track_id):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
 
-
-
-
-
-
-
-
-
-
+        if form.is_valid():
+            form.save()
+            return redirect('posts:tracker_list')
+    else:
+        form = UserChangeForm(instance=request.user)
+        args = {'form':form}
+        return render(request, 'posts/modify.html', args)
+'''
 
 #def tracker_edit(request, task_id=None):
 #    if task_id is not None:
