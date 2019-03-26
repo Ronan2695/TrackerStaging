@@ -161,7 +161,7 @@ class CreateArticle(forms.ModelForm):
     source_empty = tuple(BLANK_CHOICE_DASH + list(source))
     Source_of_Alert = forms.ChoiceField(choices=(source_empty))
 
-    mode=[('mail','Email'),('mc','Manual Check'),('slack','Slack')]
+    mode=[('Email','Email'),('Manual Check','Manual Check'),('Slack','Slack')]
     Mode_of_Alert = forms.ChoiceField(choices=mode, widget=forms.RadioSelect, initial='mc')
 
     engineer= (
@@ -276,7 +276,6 @@ class CreateArticle(forms.ModelForm):
         fields = '__all__'
         field_order = ['Year','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated','Escalated_Reason',
         'Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
-
     #class Media:
     #    js = ('js/toggle.js',)
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+<h3 style="color:Black;text-align:center">PROCESS UPDATES<h3>
+<h2><a href="{% url 'updates:process_updates' %}">Add New Update!</a></button></h2>
+<table style="width:100%">
+  <tr>
+    <th>Date</th>
+    <th>Topic</th>
+    <th>From</th>
+    <th>Description</th>
+    <th>Status</th>
+  </tr>
+{% for update in updates.all %}
+<tr>
+  <td>{{ update.Date | date }}</td>
+  <td>{{ update.Topic }}</td>
+  <td>{{ update.From }}</td>
+  <td>{{ update.Description }}</td>
+  <td>{{ update.Status }}</td>
+</tr>
+{% endfor %}
+</table>
+<br>
+</body>

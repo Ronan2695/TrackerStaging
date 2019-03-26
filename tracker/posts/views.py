@@ -14,9 +14,6 @@ def quicklinkview(request):
 def scheduleview(request):
     return render(request, 'posts/engschedule.html')
 
-def prupdatesview(request):
-    return render(request, 'posts/processupdates.html')
-
 def tracker_list(request):
     tracks = Post.objects.all()
     return render(request,'posts/tracker_list.html',{'tracks':tracks})
