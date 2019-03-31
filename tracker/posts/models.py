@@ -1,10 +1,13 @@
 from django.db import models
 import datetime
+from django.utils.translation import gettext as _
+
 # Create your models here.
 class Post(models.Model):
     Year = models.PositiveSmallIntegerField(blank=False, null=False, default=2019)
-    Month = models.CharField(max_length=100, null=False, blank=False, default='March')
-    Date = models.DateTimeField(null=False)
+    Week = models.IntegerField(blank=False, null=True)
+    Month = models.CharField(max_length=100, null=False, blank=False)
+    Date = models.DateField(_("Date"), default=datetime.date.today, null=False, blank=False)
     Shift = models.TextField(null=False)
     Day_Of_Week = models.TextField(null=False)
     Time = models.TimeField(blank=False)
@@ -26,8 +29,8 @@ class Post(models.Model):
     NOC_Engineer = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Remediation = models.TextField(null=True, blank=False)
     Escalated = models.CharField(max_length=100, null=False, blank=False, default='No')
-    Escalated_Reason = models.CharField(max_length=100, null=True, blank=False, default='Please select')
-    Status = models.CharField(max_length=100, null=True, blank=False, default='Resolved')
+    Escalated_Reason = models.CharField(max_length=100, null=True, blank=True, default='Please select')
+    Status = models.CharField(max_length=100, null=True, blank=True, default='Resolved')
     Escalated_to = models.CharField(max_length=100, null=True, blank=False, default='NA')
     Resolved_by_Team = models.CharField(max_length=100, null=True, blank=False, default='Please select')
     Resolved_by_Engineer = models.CharField(max_length=30,null=False, default='noc')

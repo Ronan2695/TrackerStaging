@@ -5,7 +5,6 @@
   <script src="{% static 'js/toggle.js' %}"></script>
   <title>Site</title>
 </head>
-
 <style>
 * {
   box-sizing: border-box;
@@ -65,6 +64,7 @@ input[type=reset]:hover {
   float: left;
   width: 20%;
   margin-top: 37px;
+  display: inline-block;
 }
 
 /* Clear floats after the columns */
@@ -114,7 +114,11 @@ input {
   display: inline-block;
 }
 
-label[for="Escalated_to"]{display:none;}
+
+
+ul#id_Day_Of_Week li{
+  display: inline-block;
+  }
 </style>
 
 <body>
@@ -129,7 +133,7 @@ label[for="Escalated_to"]{display:none;}
             <b><label for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></b>
           </div>
           <div class="col-75">
-            </b>{{ field }}</br>
+          </b>{{ field }}</br>
           </div>
       </div>
     {% endfor %}

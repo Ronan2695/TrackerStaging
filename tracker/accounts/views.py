@@ -7,9 +7,6 @@ from django.contrib import auth
 
 
 
-
-
-
 def loginview(request):
     if request.method == 'POST':
         user = auth.authenticate(request, username=request.POST['username'], password=request.POST['password'])
@@ -22,10 +19,6 @@ def loginview(request):
             return render(request, 'accounts/login.html', {'error':'Please check the creds'})
     else:
         return render(request, 'accounts/login.html')
-
-
-
-
 
 
 def signupview(request):
@@ -66,9 +59,6 @@ def homeview(request):
 
 def forgotview(request):
     return render(request, 'accounts/forgot.html')
-
-
-
 
 
 def usercreatedview(request):

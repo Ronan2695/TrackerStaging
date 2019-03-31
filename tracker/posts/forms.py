@@ -5,43 +5,62 @@ import datetime
 from . import models
 from django.utils.safestring import mark_safe
 from django.forms import widgets
-import datetime
 from django.db.models.fields import BLANK_CHOICE_DASH
-
+from datetime import date
 #class HorizontalRadioRenderer(forms.RadioSelect):
 #   def render(self, name, value, attrs=None, renderer=None):
 #     return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 
 class CreateArticle(forms.ModelForm):
 
-    shift_choices=(('APAC','APAC'),('EMEA','EMEA'),('USA','USA'))
-    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect)
+    weeknumber = date.today().isocalendar()[1]
+    Week = forms.IntegerField(initial=weeknumber)
 
-    Date = forms.DateField(widget=forms.SelectDateWidget(), initial = timezone.now)
 
-    Day_Of_Week=(('Weekday','Weekday'),('Weeekend','Weekend'))
-    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial='Weekday')
+    shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
+    currentTime = datetime.datetime.now().hour
+    x = ""
+    if currentTime in range (5, 14, 1):
+        x = ("apac")
+    elif currentTime in range (14, 22, 1):
+        x = ("emea")
+    elif currentTime in range (22, 5, 1):
+        x = ("usa")
+
+    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect, initial=x)
+
+    #Date = forms.DateField(widget=forms.SelectDateWidget(), initial = timezone.now)
+
+    Day_Of_Week=(('Weekday','Weekday'),('Weekend','Weekend'))
+    weekno = datetime.datetime.today().weekday()
+
+    if weekno<5:
+        x = ("Weekday")
+    else:
+        x = ("Weekend")
+
+    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x)
 
     Time = forms.DateTimeField(input_formats=['%H:%M'])
 
     Responded_Time = forms.DateTimeField(input_formats=['%H:%M'])
 
     MONTH_CHOICES = (
-    ('January', 'January'),
-    ('February', 'February'),
-    ('March', 'March'),
-    ('April', 'April'),
-    ('May', 'May'),
-    ('June', 'June'),
-    ('July', 'July'),
-    ('August', 'August'),
-    ('September', 'September'),
-    ('October', 'October'),
-    ('November', 'November'),
-    ('December', 'December'),
+    ('1', 'January'),
+    ('2', 'February'),
+    ('3', 'March'),
+    ('4', 'April'),
+    ('5', 'May'),
+    ('6', 'June'),
+    ('7', 'July'),
+    ('8', 'August'),
+    ('9', 'September'),
+    ('10', 'October'),
+    ('11', 'November'),
+    ('12', 'December'),
 )
     today = datetime.date.today()
-    #months = ['zero','January','February','March','April','May','June','July','August','September','October','November','December']
+    #months = ['January','February','March','April','May','June','July','August','September','October','November','December']
     #current_month = months[today.month]
     months = today.month
     Month = forms.ChoiceField(choices=MONTH_CHOICES,initial=months)
@@ -77,8 +96,8 @@ class CreateArticle(forms.ModelForm):
     Res_team_empty =  tuple(BLANK_CHOICE_DASH + list(Res_team))
     Responsible_Team = forms.ChoiceField(choices=(Res_team_empty))
 
-    Fse_Alarm=(('yes','Yes'),('no','No'))
-    False_Alarm = forms.ChoiceField(choices=Fse_Alarm, widget=forms.RadioSelect, initial='yes')
+    fse_alarm=(('Yes','Yes'),('No','No'))
+    False_Alarm = forms.ChoiceField(choices=fse_alarm, widget=forms.RadioSelect, initial='No')
 
     inc_type = (
     ('Alert', 'Alert'),
@@ -99,7 +118,7 @@ class CreateArticle(forms.ModelForm):
     ('Celery Dashboard check', 'Celery Dashboard check'),
     ('Dashboard monitoring', 'Dashboard monitoring'),
     ('Pipeline monitoring', 'Pipeline monitoring'),
-    ('Strom Monitoring', 'Strom Monitoring'),
+    ('Storm Monitoring', 'Storm Monitoring'),
 )
     name_empty = tuple(BLANK_CHOICE_DASH + list(name))
     Name = forms.ChoiceField(choices=(name_empty))
@@ -197,7 +216,7 @@ class CreateArticle(forms.ModelForm):
     ('NA', 'NA'),
 )
     escreason_empty = tuple(BLANK_CHOICE_DASH + list(escreason))
-    Escalated_Reason = forms.ChoiceField(choices=(escreason_empty))
+    Escalated_Reason = forms.ChoiceField(choices=(escreason_empty), required=False)
 
     stat = (
     ('Resolved', 'Resolved'),
@@ -237,7 +256,7 @@ class CreateArticle(forms.ModelForm):
     ('Webappp', 'Webappp'),
 )
     escto_empty = tuple(BLANK_CHOICE_DASH + list(escto))
-    Escalated_to = forms.ChoiceField(choices=(escto_empty))
+    Escalated_to = forms.ChoiceField(choices=(escto_empty), required=False)
 
     resby = (
     ('B2B core', 'B2B core'),
@@ -274,10 +293,37 @@ class CreateArticle(forms.ModelForm):
     class Meta:
         model = models.Post
         fields = '__all__'
-        field_order = ['Year','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated','Escalated_Reason',
-        'Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
-    #class Media:
-    #    js = ('js/toggle.js',)
+        field_order = ['Year','Month','Week','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
+        'Escalated_Reason','Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -299,46 +345,7 @@ class CreateArticle(forms.ModelForm):
             'class': 'myCustomClass',
             'name': 'myCustomName',
             'placeholder': 'myCustomPlaceholder'})
-'''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
     def clean(self):
        Incident_Type = self.cleaned_data.get('Incident_Type')
        if Incident_Type == 'Alert':
@@ -351,12 +358,6 @@ class CreateArticle(forms.ModelForm):
         return redirect("create_user_success")
 
     return render_to_response("signup/form.html", {'form': form})
-
-
-
-
-
-
 
 
     def create_user(request):
