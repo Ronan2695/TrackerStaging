@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load render_table from django_tables2 %}
 <html>
-
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
   <style>
   table, th, td {
@@ -42,88 +45,27 @@
     background-color: #4C596B;
   }
 
+  div.table-container {
+    display: inline-block;
+    position:relative;
+    overflow:auto;
+}
   </style>
 
-</head>
-
 <body>
-<h3 style="color:Black;text-align:center">TRACKER<h3>
 <form>
 <button class="buttons" formaction="{% url 'posts:tracker_edit' %}">Add New!</button>
 </form>
-<div id="overflow">
-  <table style="width:100%">
-    <tr>
-      <th>Ticket number</th>
-      <th>Year</th>
-      <th>Week</th>
-      <th>Month</th>
-      <th>Date</th>
-      <th>Shift</th>
-      <th>Day Of Week</th>
-      <th>Time</th>
-      <th>Responded Time</th>
-      <th>Time spent</th>
-      <th>Complexity</th>
-      <th>Responsible Team</th>
-      <th>False alarm</th>
-      <th>Incident Type</th>
-      <th>Priority</th>
-      <th>If Others Please Specify</th>
-      <th>Description</th>
-      <th>Environment</th>
-      <th>Host Type</th>
-      <th>Host Name</th>
-      <th>Source of Alert</th>
-      <th>Mode of Alert</th>
-      <th>NOC Engineer</th>
-      <th>Remediation</th>
-      <th>Escalated</th>
-      <th>Escalated Reason</th>
-      <th>Status</th>
-      <th>Escalated to</th>
-      <th>Resolved by Team</th>
-      <th>Resolved by Engineer</th>
-      <th>Resolution</th>
-      <th>Comments</th>
-    </tr>
-  {% for track in tracks.all %}
-  <tr>
-    <td><a href="{% url 'posts:tracker_view' track.id %}">{{ track.id }}<a></td>
-    <td>{{ track.Year }}</td>
-    <td>{{ track.Week }}</td>
-    <td>{{ track.Month }}</td>
-    <td>{{ track.Date | date }}</td>
-    <td>{{ track.Shift }}</td>
-    <td>{{ track.Day_Of_Week }}</td>
-    <td>{{ track.Time }}</td>
-    <td>{{ track.Responded_Time }}</td>
-    <td>{{ track.Time_spent }}</td>
-    <td>{{ track.Complexity }}</td>
-    <td>{{ track.Responsible_Team }}</td>
-    <td>{{ track.False_Alarm }}</td>
-    <td>{{ track.Incident_Type }}</td>
-    <td>{{ track.Priority }}</td>
-    <td>{{ track.If_Others_Please_Specify }}</td>
-    <td>{{ track.Description }}</td>
-    <td>{{ track.Environment }}</td>
-    <td>{{ track.Host_Type }}</td>
-    <td>{{ track.Host_Name }}</td>
-    <td>{{ track.Source_of_Alert }}</td>
-    <td>{{ track.Mode_of_Alert }}</td>
-    <td>{{ track.NOC_Engineer }}</td>
-    <td>{{ track.Remediation }}</td>
-    <td>{{ track.Escalated }}</td>
-    <td>{{ track.Escalated_Reason }}</td>
-    <td>{{ track.Status }}</td>
-    <td>{{ track.Escalated_to }}</td>
-    <td>{{ track.Resolved_by_Team }}</td>
-    <td>{{ track.Resolved_by_Engineer }}</td>
-    <td>{{ track.Resolution }}</td>
-    <td>{{ track.Comments }}</td>
-  </tr>
-  {% endfor %}
-  </table>
+<div style="background: white;
+color: black;
+width: 100%;
+height: 100%;
+overflow: scroll;
+border: 2px solid #2C9FDD;
+border-bottom: none;">
+<table class="table table-striped">
+{% render_table table %}
+</table>
 </div>
 </body>
 {% endblock %}

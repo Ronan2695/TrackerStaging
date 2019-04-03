@@ -14,8 +14,7 @@ from datetime import date
 class CreateArticle(forms.ModelForm):
 
     weeknumber = date.today().isocalendar()[1]
-    Week = forms.IntegerField(initial=weeknumber)
-
+    Week = forms.IntegerField(initial=weeknumber, help_text = 'The week number ')
 
     shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
     currentTime = datetime.datetime.now().hour
@@ -39,11 +38,11 @@ class CreateArticle(forms.ModelForm):
     else:
         x = ("Weekend")
 
-    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x)
+    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x, help_text = 'Specify weekend or weekday')
 
-    Time = forms.DateTimeField(input_formats=['%H:%M'])
+    #Start_Time = forms.CharField(input_formats=['%H:%M'])
 
-    Responded_Time = forms.DateTimeField(input_formats=['%H:%M'])
+    #Responded_Time = forms.CharField(input_formats=['%H:%M'])
 
     MONTH_CHOICES = (
     ('1', 'January'),
@@ -109,8 +108,8 @@ class CreateArticle(forms.ModelForm):
     inc_type_empty = tuple(BLANK_CHOICE_DASH + list(inc_type))
     Incident_Type = forms.ChoiceField(choices=(inc_type_empty))
 
-    prior=(('None','P0'),('P1','P1'),('P2','P2'),('None','None'))
-    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect, initial='no')
+    prior=(('P0','P0'),('P1','P1'),('P2','P2'),('None','None'))
+    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect, initial='None')
 
 
 
@@ -293,9 +292,9 @@ class CreateArticle(forms.ModelForm):
     class Meta:
         model = models.Post
         fields = '__all__'
-        field_order = ['Year','Month','Week','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
+        field_order = ['Year','Week','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
         'Escalated_Reason','Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
-
+        exclude = ['Complexity','Interval','Ticket_Number']
 
 
 

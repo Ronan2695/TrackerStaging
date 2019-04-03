@@ -6,6 +6,8 @@ from .models import Post
 from .forms import CreateArticle
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserChangeForm
+from .tables import TrackerTable
+from django_tables2 import RequestConfig
 
 @login_required
 def quicklinkview(request):
@@ -14,9 +16,15 @@ def quicklinkview(request):
 def scheduleview(request):
     return render(request, 'posts/engschedule.html')
 
+#def tracker_list(request):
+#    tracks = Post.objects.all()
+#    return render(request,'posts/tracker_list.html',{'tracks':tracks})
+
 def tracker_list(request):
-    tracks = Post.objects.all()
-    return render(request,'posts/tracker_list.html',{'tracks':tracks})
+    table = TrackerTable(Post.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, 'posts/tracker_list.html', {'table': table})
+
 
 def tracker_edit(request):
     if request.method == 'POST':
@@ -29,10 +37,54 @@ def tracker_edit(request):
         tracker = forms.CreateArticle()
     return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
 
+
 def tracker_view(request, track_id):
     #post = Post.objects.get(pk=post_id)
     track = get_object_or_404(Post, pk=track_id)
     return render(request, 'posts/tracker_view.html', {'track':track})
+
+
+'''
+def tracker_edit(request, id=None, template_name='posts/tracker_edit.html'):
+    if id:
+        track = get_object_or_404(Post, pk=id)
+    else:
+        track = Post()
+    tracker = CreateArticle(request.POST or None, instance=track)
+    if request.POST and tracker.is_valid():
+        tracker.save()#
+        # Save was successful, so redirect to another page
+        redirect_url = reverse('posts:tracker_list')
+        return redirect(redirect_url)
+    else:
+        tracker = CreateArticle(instance=track)
+
+    return render(request, template_name, {
+        'tracker': tracker, 'id':id
+    })
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 '''
 def tracker_edit(request, id):

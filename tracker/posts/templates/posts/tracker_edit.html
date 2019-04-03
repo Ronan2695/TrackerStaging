@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
   {% load static %}
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -119,11 +120,18 @@ input {
 ul#id_Day_Of_Week li{
   display: inline-block;
   }
+
+  #id_Start_Time
+  {
+    pattern=".+@.+..+"
+    title="Your first name please"
+  }
+
 </style>
 
 <body>
 <div class="border">
-<form class="site-form" action="{% url 'posts:tracker_edit' %}" method="post" enctype="multipart/form-data">
+<form class="site-form" action="{% url 'posts:tracker_edit' %}" method="post" enctype="multipart/form-data" onsubmit="return validation()">
   <div class="inlineLabels">
   {% csrf_token %}
   <div class="inline-container">
@@ -134,6 +142,7 @@ ul#id_Day_Of_Week li{
           </div>
           <div class="col-75">
           </b>{{ field }}</br>
+          <strong><br>{{ field.errors }}</br></strong>
           </div>
       </div>
     {% endfor %}
