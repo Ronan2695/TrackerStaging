@@ -6,6 +6,7 @@ from .models import Update
 from .forms import UpdateArticle
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserChangeForm
+from .models import Schedule
 
 
 def process_updates(request):
@@ -22,3 +23,7 @@ def process_updates(request):
 def updates_list(request):
     updates = Update.objects.all()
     return render(request,'updates/updates_list.html',{'updates':updates})
+
+def scheduleview(request):
+    posts = Schedule.objects.all()
+    return render(request, 'posts/engschedule.html',{'posts':posts})

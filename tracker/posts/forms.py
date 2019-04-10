@@ -14,16 +14,17 @@ from datetime import date
 class CreateArticle(forms.ModelForm):
 
     weeknumber = date.today().isocalendar()[1]
-    Week = forms.IntegerField(initial=weeknumber, help_text = 'The week number ')
+    Week = forms.IntegerField(initial=weeknumber)
+
 
     shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
-    currentTime = datetime.datetime.now().hour
+    currenttime = datetime.datetime.now().hour
     x = ""
-    if currentTime in range (5, 14, 1):
+    if currenttime in range (5, 14, 1):
         x = ("apac")
-    elif currentTime in range (14, 22, 1):
+    elif currenttime in range (14, 22, 1):
         x = ("emea")
-    elif currentTime in range (22, 5, 1):
+    elif currenttime in range (22, 5, 1):
         x = ("usa")
 
     Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect, initial=x)
@@ -38,31 +39,32 @@ class CreateArticle(forms.ModelForm):
     else:
         x = ("Weekend")
 
-    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x, help_text = 'Specify weekend or weekday')
+    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x)
 
     #Start_Time = forms.CharField(input_formats=['%H:%M'])
 
     #Responded_Time = forms.CharField(input_formats=['%H:%M'])
 
     MONTH_CHOICES = (
-    ('1', 'January'),
-    ('2', 'February'),
-    ('3', 'March'),
-    ('4', 'April'),
-    ('5', 'May'),
-    ('6', 'June'),
-    ('7', 'July'),
-    ('8', 'August'),
-    ('9', 'September'),
-    ('10', 'October'),
-    ('11', 'November'),
-    ('12', 'December'),
+    ('January', 'January'),
+    ('February', 'February'),
+    ('March', 'March'),
+    ('April', 'April'),
+    ('May', 'May'),
+    ('June', 'June'),
+    ('July', 'July'),
+    ('August', 'August'),
+    ('September', 'September'),
+    ('October', 'October'),
+    ('November', 'November'),
+    ('December', 'December'),
 )
-    today = datetime.date.today()
+    #today = datetime.date.today()
     #months = ['January','February','March','April','May','June','July','August','September','October','November','December']
     #current_month = months[today.month]
-    months = today.month
-    Month = forms.ChoiceField(choices=MONTH_CHOICES,initial=months)
+    #months = today.month
+    Month_empty = tuple(BLANK_CHOICE_DASH + list(MONTH_CHOICES))
+    Month = forms.ChoiceField(choices=(Month_empty))
 
     Res_team = (
     ('B2B - Core', 'B2B - Core'),
@@ -294,78 +296,8 @@ class CreateArticle(forms.ModelForm):
         fields = '__all__'
         field_order = ['Year','Week','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
         'Escalated_Reason','Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
-        exclude = ['Complexity','Interval','Ticket_Number']
+        exclude = ['Complexity','Interval','Ticket_Number','author']
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-    def __init__(self, *args, **kwargs):
-        super(CreateArticle, self).__init__(*args, **kwargs)
-        self.fields['Escalated'].widget = TextInput(attrs={
-            'id': 'myCustomId',
-            'class': 'myCustomClass',
-            'name': 'myCustomName',
-            'placeholder': 'myCustomPlaceholder'})
-
-    def clean(self):
-       Incident_Type = self.cleaned_data.get('Incident_Type')
-       if Incident_Type == 'Alert':
-           Priority = prior['P1']
-
-        def create_user(request):
-    form = UserCreationForm(request.POST or None)
-    if form.is_valid():
-        do_something_with(form.cleaned_data)
-        return redirect("create_user_success")
-
-    return render_to_response("signup/form.html", {'form': form})
-
-
-    def create_user(request):
-    extra_questions = get_questions(request)
-    form = UserCreationForm(request.POST or None, extra=extra_questions)
-    if form.is_valid():
-        for (question, answer) in form.extra_answers():
-            save_answer(request, question, answer)
-        return redirect("create_user_success")
-
-    return render_to_response("signup/form.html", {'form': form})
-'''
+        def __init__(self, *args, **kwargs):
+            super(CreateArticle, self).__init__(*args, **kwargs)
+            self.fields['Date'].widget = widgets.AdminDateWidget()

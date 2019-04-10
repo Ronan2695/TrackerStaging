@@ -4,7 +4,9 @@
 {% block content %}
 <html>
 <body>
-<p>prupdates</p>
+{% for post in posts.all %}
+    {{ post.image }}
+{% endfor %}    
 </body>
 </html>
 {% endblock %}

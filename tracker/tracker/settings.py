@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'posts',
     'updates',
     'django_tables2',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

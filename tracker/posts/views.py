@@ -13,19 +13,53 @@ from django_tables2 import RequestConfig
 def quicklinkview(request):
     return render(request, 'posts/quicklinks.html')
 
-def scheduleview(request):
-    return render(request, 'posts/engschedule.html')
-
 #def tracker_list(request):
 #    tracks = Post.objects.all()
 #    return render(request,'posts/tracker_list.html',{'tracks':tracks})
 
 def tracker_list(request):
-    table = TrackerTable(Post.objects.all())
+    table = TrackerTable(Post.objects.all(), order_by="-id")
     RequestConfig(request).configure(table)
     return render(request, 'posts/tracker_list.html', {'table': table})
 
 
+
+def tracker_view(request, track_id):
+    #post = Post.objects.get(pk=post_id)
+    track = get_object_or_404(Post, pk=track_id)
+    return render(request, 'posts/tracker_view.html', {'track':track})
+
+
+
+def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'):
+    if track_id is not None:
+        track = get_object_or_404(Post, pk=track_id)
+    else:
+        track = Post()
+    tracker = CreateArticle(request.POST or None, instance=track)
+    if request.POST and tracker.is_valid():
+        tracker.save()
+        redirect_url = reverse('posts:tracker_list')
+        return redirect(redirect_url)
+
+    return render(request, template_name, {
+        'tracker': tracker
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 def tracker_edit(request):
     if request.method == 'POST':
         tracker = forms.CreateArticle(request.POST)
@@ -36,70 +70,7 @@ def tracker_edit(request):
     else:
         tracker = forms.CreateArticle()
     return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
-
-
-def tracker_view(request, track_id):
-    #post = Post.objects.get(pk=post_id)
-    track = get_object_or_404(Post, pk=track_id)
-    return render(request, 'posts/tracker_view.html', {'track':track})
-
-
 '''
-def tracker_edit(request, id=None, template_name='posts/tracker_edit.html'):
-    if id:
-        track = get_object_or_404(Post, pk=id)
-    else:
-        track = Post()
-    tracker = CreateArticle(request.POST or None, instance=track)
-    if request.POST and tracker.is_valid():
-        tracker.save()#
-        # Save was successful, so redirect to another page
-        redirect_url = reverse('posts:tracker_list')
-        return redirect(redirect_url)
-    else:
-        tracker = CreateArticle(instance=track)
-
-    return render(request, template_name, {
-        'tracker': tracker, 'id':id
-    })
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-def tracker_edit(request, id):
-    session = Post.objects.get(pk=id)
-    if request.method == 'POST':
-        tracker = forms.CreateArticle(request.POST or None, instance=session)
-        if tracker.is_valid():
-            #save article to db
-            tracker.save(commit=False)
-            return redirect('posts:tracker_list')
-    else:
-        tracker = forms.CreateArticle()
-    return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
-'''
-
 
 
 

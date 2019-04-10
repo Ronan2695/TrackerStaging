@@ -7,3 +7,6 @@ class Update(models.Model):
     From = models.CharField(max_length=100,null=False)
     Description = models.TextField(null=True, blank=False)
     Status = models.TextField(null=False, default='Active')
+
+class Schedule(models.Model):
+    image = models.ImageField(upload_to='media/')

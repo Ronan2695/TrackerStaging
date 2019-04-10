@@ -1,14 +1,20 @@
 from django.db import models
 import datetime
 from django.utils.translation import gettext as _
-
+from datetime import date
 # Create your models here.
 class Post(models.Model):
-    #Ticket_Number = models.IntegerField(blank=False, null=True, db_column='tkno')
-    Year = models.PositiveSmallIntegerField(blank=False, null=False, default=2019, db_column='yeer')
-    Week = models.IntegerField(blank=False, null=True, db_column='weekno')
+    today = datetime.date.today()
+    years = today.year
+    Year = models.PositiveSmallIntegerField(blank=False, null=False, db_column='yeer',default=years)
+
+    weeknumber = date.today().isocalendar()[1]
+    Week = models.IntegerField(blank=False, null=True, db_column='weekno',default=weeknumber)
+
+
     Month = models.CharField(max_length=100, null=False, blank=False, db_column='menth')
     Date = models.DateField(_("Date"), default=datetime.date.today, null=False, blank=False, db_column='dete')
+    #Date = models.DateField(widget=forms.AdminDateWidget)
     Shift = models.TextField(null=False, db_column='shyft')
     Day_Of_Week = models.TextField(null=False, db_column='dayofweek')
     Start_Time = models.CharField(max_length=8,blank=False, default='01:00',db_column='stime')
