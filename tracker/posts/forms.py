@@ -7,9 +7,8 @@ from django.utils.safestring import mark_safe
 from django.forms import widgets
 from django.db.models.fields import BLANK_CHOICE_DASH
 from datetime import date
-#class HorizontalRadioRenderer(forms.RadioSelect):
-#   def render(self, name, value, attrs=None, renderer=None):
-#     return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+from bootstrap_datepicker_plus import DatePickerInput
+from django.forms import ModelForm, widgets, DateTimeField, DateField, DateInput
 
 class CreateArticle(forms.ModelForm):
 
@@ -18,28 +17,11 @@ class CreateArticle(forms.ModelForm):
 
 
     shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
-    currenttime = datetime.datetime.now().hour
-    x = ""
-    if currenttime in range (5, 14, 1):
-        x = ("apac")
-    elif currenttime in range (14, 22, 1):
-        x = ("emea")
-    elif currenttime in range (22, 5, 1):
-        x = ("usa")
 
-    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect, initial=x)
+    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect)
 
-    #Date = forms.DateField(widget=forms.SelectDateWidget(), initial = timezone.now)
-
-    Day_Of_Week=(('Weekday','Weekday'),('Weekend','Weekend'))
-    weekno = datetime.datetime.today().weekday()
-
-    if weekno<5:
-        x = ("Weekday")
-    else:
-        x = ("Weekend")
-
-    Day_Of_Week = forms.ChoiceField(choices=Day_Of_Week, widget=forms.RadioSelect, initial=x)
+    weekchoice=(('Weekday','Weekday'),('Weekend','Weekend'))
+    Day_Of_Week = forms.ChoiceField(choices=weekchoice, widget=forms.RadioSelect)
 
     #Start_Time = forms.CharField(input_formats=['%H:%M'])
 
@@ -98,7 +80,7 @@ class CreateArticle(forms.ModelForm):
     Responsible_Team = forms.ChoiceField(choices=(Res_team_empty))
 
     fse_alarm=(('Yes','Yes'),('No','No'))
-    False_Alarm = forms.ChoiceField(choices=fse_alarm, widget=forms.RadioSelect, initial='No')
+    False_Alarm = forms.ChoiceField(choices=fse_alarm, widget=forms.RadioSelect)
 
     inc_type = (
     ('Alert', 'Alert'),
@@ -111,7 +93,7 @@ class CreateArticle(forms.ModelForm):
     Incident_Type = forms.ChoiceField(choices=(inc_type_empty))
 
     prior=(('P0','P0'),('P1','P1'),('P2','P2'),('None','None'))
-    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect, initial='None')
+    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect)
 
 
 
@@ -296,8 +278,4 @@ class CreateArticle(forms.ModelForm):
         fields = '__all__'
         field_order = ['Year','Week','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
         'Escalated_Reason','Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
-        exclude = ['Complexity','Interval','Ticket_Number','author']
-
-        def __init__(self, *args, **kwargs):
-            super(CreateArticle, self).__init__(*args, **kwargs)
-            self.fields['Date'].widget = widgets.AdminDateWidget()
+        exclude = ['Ticket_Number','author']

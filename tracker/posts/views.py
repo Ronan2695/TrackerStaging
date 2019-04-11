@@ -47,18 +47,6 @@ def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 '''
 def tracker_edit(request):
     if request.method == 'POST':
@@ -70,13 +58,26 @@ def tracker_edit(request):
     else:
         tracker = forms.CreateArticle()
     return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
+
+
+
+def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'):
+    if track_id is not None:
+        track = get_object_or_404(Post, pk=track_id)
+    else:
+        track = Post()
+    tracker = CreateArticle(request.POST or None, instance=track)
+    if request.POST and tracker.is_valid():
+        tracker.save()
+        redirect_url = reverse('posts:tracker_list')
+        return redirect(redirect_url)
+
+    return render(request, template_name, {
+        'tracker': tracker
+    })
+
+
 '''
-
-
-
-
-
-
 
 
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'updates',
     'django_tables2',
     'bootstrap3',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

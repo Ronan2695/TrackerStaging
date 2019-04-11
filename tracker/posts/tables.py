@@ -18,5 +18,4 @@ class TrackerTable(tables.Table):
     class Meta:
         model = models.Post
         template_name = 'django_tables2/semantic.html'
-        exclude = ['Complexity','Interval','Ticket_Number','Priority']
         sequence = ('editable','id','...')

@@ -2,6 +2,11 @@ from django.db import models
 import datetime
 from django.utils.translation import gettext as _
 from datetime import date
+from datetime import timedelta as tdelta
+from django.utils import timezone
+import calendar
+
+
 # Create your models here.
 class Post(models.Model):
     today = datetime.date.today()
@@ -11,19 +16,39 @@ class Post(models.Model):
     weeknumber = date.today().isocalendar()[1]
     Week = models.IntegerField(blank=False, null=True, db_column='weekno',default=weeknumber)
 
+    today = datetime.date.today()
+    x=calendar.month_name[today.month]
+    Month = models.CharField(max_length=100, null=False, blank=False, db_column='menth',default=x)
+    #Date = models.DateField(_("Date"), default=datetime.date.today, null=False, blank=False, db_column='dete')
 
-    Month = models.CharField(max_length=100, null=False, blank=False, db_column='menth')
-    Date = models.DateField(_("Date"), default=datetime.date.today, null=False, blank=False, db_column='dete')
-    #Date = models.DateField(widget=forms.AdminDateWidget)
-    Shift = models.TextField(null=False, db_column='shyft')
-    Day_Of_Week = models.TextField(null=False, db_column='dayofweek')
+    inidate=timezone.now().date()
+    Date = models.DateField(null=False, blank=False, db_column='dete',default=inidate)
+
+
+    currenttime = datetime.datetime.now().hour
+    y = ""
+    if currenttime in range (5, 14, 1):
+        y = ("apac")
+    elif currenttime in range (14, 22, 1):
+        y = ("emea")
+    elif currenttime in range (22, 5, 1):
+        y = ("usa")
+    Shift = models.TextField(null=False, db_column='shyft', default=y)
+
+    weekno = datetime.datetime.today().weekday()
+    if weekno < 5:
+        x = ("Weekday")
+    else:
+        x = ("Weekend")
+    Day_Of_Week = models.TextField(null=False, db_column='dayofweek', default=x)
+
     Start_Time = models.CharField(max_length=8,blank=False, default='01:00',db_column='stime')
     Responded_Time =  models.CharField(max_length=8,blank=False,default='01:00',db_column='rtime')
     Time_spent = models.CharField(max_length=8,blank=False, db_column='wtime')
     Responsible_Team = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='respteam')
-    False_Alarm = models.TextField(null=False, db_column='falsealarm')
+    False_Alarm = models.TextField(null=False, db_column='falsealarm',default="No")
     Incident_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='itype')
-    Priority = models.CharField(max_length=10 ,null=False, db_column='priority')
+    Priority = models.CharField(max_length=10 ,null=False, db_column='priority', default='None')
     Name = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='name')
     If_Others_Please_Specify = models.CharField(max_length=100,null=False, db_column='others')
     Description = models.TextField(null=True, blank=False, db_column='descrp')
@@ -42,8 +67,8 @@ class Post(models.Model):
     Resolved_by_Engineer = models.CharField(max_length=30,null=False, default='noc', db_column='resolvedby')
     Resolution = models.TextField(null=True, blank=False, db_column='resolution')
     Comments = models.TextField(null=True, blank=False, db_column='comments')
-    Interval = models.IntegerField(blank=True, null=True, db_column='intrval')
-    Complexity = models.TextField(blank=True, null=True, db_column='cmplx')
+    #Interval = models.IntegerField(blank=True, null=False, db_column='intrval')
+    #Complexity = models.TextField(blank=True, null=False, db_column='cmplx')
 
 
 
