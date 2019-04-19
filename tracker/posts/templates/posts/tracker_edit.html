@@ -129,7 +129,7 @@ input {
   display: inline-block;
 }
 
-
+}
 </style>
 
 <body>
@@ -141,12 +141,13 @@ input {
     {% for field in tracker %}
       <div class="row">
           <div class="col-25">
-            <b><label for="{{ field.id_for_label }}"> {{ field.label_tag }}</label></b>
+            <b><label title="{{ field.name.help_text }}" for="{{ field.id_for_label }}"> {{ field.label_tag }}</label></b>
           </div>
           <div class="col-75">
           </b>{{ field }}</br>
           </div>
       </div>
+
     {% endfor %}
 </div>
 

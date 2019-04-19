@@ -12,3 +12,9 @@ function toggleFields() {
     else
         $("#id_Escalated_to").hide() && $("#id_Escalated_Reason").hide() && $('label[for=id_Escalated_to], input#id_Escalated_to').hide() && $('label[for=id_Escalated_Reason], input#id_Escalated_Reason').hide();
 }
+
+
+function callme(){
+$("#myspan").text("new tooltip")
+
+}

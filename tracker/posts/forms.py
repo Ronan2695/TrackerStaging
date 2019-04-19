@@ -27,6 +27,8 @@ class CreateArticle(forms.ModelForm):
 
     #Responded_Time = forms.CharField(input_formats=['%H:%M'])
 
+    #Time_spent = forms.CharField(label="Time spent",help_text=mark_safe('<p title="Your last name please"></p>'), required=True, max_length="4")
+
     MONTH_CHOICES = (
     ('January', 'January'),
     ('February', 'February'),

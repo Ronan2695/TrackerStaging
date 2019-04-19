@@ -8,6 +8,9 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserChangeForm
 from .tables import TrackerTable
 from django_tables2 import RequestConfig
+from .filters import TrackerFilter
+from .filters import PendingFilter
+
 
 @login_required
 def quicklinkview(request):
@@ -46,6 +49,40 @@ def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'
         'tracker': tracker
     })
 
+def search(request):
+    tracker_list = Post.objects.all()
+    tracker_filter = TrackerFilter(request.GET, queryset=tracker_list)
+    return render(request, 'posts/search.html', {'filter': tracker_filter})
+
+def pending(request):
+    pending_list = Post.objects.all()
+    pending_filter = PendingFilter(request.GET, queryset=pending_list)
+    return render(request, 'posts/pending.html', {'filter': pending_filter})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 '''
 def tracker_edit(request):
@@ -77,21 +114,6 @@ def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'
     })
 
 
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
 def modify(request, track_id):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)

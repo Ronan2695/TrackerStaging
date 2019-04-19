@@ -3,10 +3,22 @@ from django_tables2.views import SingleTableMixin
 from . import models
 from django_tables2.utils import A
 from . import views
+from django.contrib.auth.models import User
+import django_filters
 
-class FilteredPersonListView(SingleTableMixin, FilterView):
-    table_class = TrackerTable
-    model = models.Post
-    template_name = 'posts/tracker_list.html'
+class TrackerFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.Post
+        fields = '__all__'
+        #fields = ['Status']
 
-    filterset_class = PersonFilter
+class PendingFilter(django_filters.FilterSet):
+    #Status = django_filters.CharFilter(field_name='Status', lookup_expr='exact', initial='Pending')
+    class Meta:
+        model = models.Post
+        #fields = '__all__'
+        fields = ['Status']
+
+    def __init__(self, *args, **kwargs):
+        super(PendingFilter, self).__init__(*args, **kwargs)
+        self.form.initial['Status'] = "pending"
