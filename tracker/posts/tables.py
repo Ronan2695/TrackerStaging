@@ -19,3 +19,5 @@ class TrackerTable(tables.Table):
         model = models.Post
         template_name = 'django_tables2/semantic.html'
         sequence = ('editable','id','...')
+        #attrs = {'class': 'table table-bordered', 'tbody': {'id': 'value'}}
+        attrs = {'tbody': {'id': 'myTable'}}

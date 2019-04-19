@@ -13,12 +13,7 @@ class TrackerFilter(django_filters.FilterSet):
         #fields = ['Status']
 
 class PendingFilter(django_filters.FilterSet):
-    #Status = django_filters.CharFilter(field_name='Status', lookup_expr='exact', initial='Pending')
     class Meta:
         model = models.Post
         #fields = '__all__'
         fields = ['Status']
-
-    def __init__(self, *args, **kwargs):
-        super(PendingFilter, self).__init__(*args, **kwargs)
-        self.form.initial['Status'] = "pending"
