@@ -10,7 +10,6 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 class UpdateArticle(forms.ModelForm):
-    Date = forms.DateField(widget=forms.SelectDateWidget(), initial = timezone.now)
 
     status=[('Active','Active'),('Old','Old')]
     Status = forms.ChoiceField(choices=status, widget=forms.RadioSelect, initial='Active')

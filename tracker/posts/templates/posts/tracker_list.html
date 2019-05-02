@@ -4,12 +4,13 @@
 {% load render_table from django_tables2 %}
 {% load django_tables2 %}
 {% load bootstrap3 %}
+{% load querystring from django_tables2 %}
 
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <title>Tracker</title>
 <style>
   th {
     text-align: left;
@@ -57,6 +58,10 @@
     position:relative;
     overflow:auto;
   }
+
+  input {
+  float: right;
+  }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -70,18 +75,30 @@ $(document).ready(function(){
   });
 });
 </script>
+<script language="JavaScript">
+function toggle(source) {
+    checkboxes = document.getElementsByName('selection');
+    for(var i in checkboxes)
+        checkboxes[i].checked = source.checked;
+}
+</script>
 </head>
-
-
 
 <body>
  <form>
-
-  <button class="buttons" formaction="{% url 'posts:tracker_edit' %}">Add New!</button>
   <button class="buttons" formaction="{% url 'posts:search' %}">Advanced Search</button>
-
-<input id="myInput" type="text" placeholder="Search..">
-
+  <button class="buttons" formaction="{% url 'posts:tracker_edit' %}">Add New!</button>
+  <div class="dropdown">
+    <button class="buttons">Export
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{% querystring '_export'='csv' %}">Download CSV</a>
+      <a href="{% querystring '_export'='xls' %}">Download Excel</a>
+      <a href="{% querystring '_export'='json' %}">Download JSON</a>
+    </div>
+  </div>
+  <input id="myInput" type="text" placeholder="Search..">
 <div style="background: white;
 width: 100%;
 height: 100%;
@@ -90,6 +107,7 @@ border: 2px solid #2C9FDD;
 border-bottom: none;">
 
 <table class="table table-striped">
+
 <tbody  {{ table.attrs.tbody.as_html }} id="myTable">
     {% render_table table %}
 </tbody>

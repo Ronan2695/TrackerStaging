@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="{% static 'js/toggle.js' %}"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
         $( function() {
             $( "#id_Date" ).datepicker({
@@ -36,7 +37,7 @@ input[type=text], select, textarea {
 label {
   padding: 12px 12px 12px 0;
   display: inline-block;
-  margin-left: -25px;
+  margin-left: -40px;
 }
 
 input[type=submit] {
@@ -95,7 +96,7 @@ input[type=reset]:hover {
   border: 10px solid #56B2E4;
   padding: 2px;
   margin: 20px;
-  margin-left : 25%
+  margin-left: 400px;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
@@ -134,7 +135,8 @@ input {
 
 <body>
 <div class="border">
-<form class="site-form" method="post" enctype="multipart/form-data" onsubmit="return validation()">
+
+<form class="site-form" method="post" enctype="multipart/form-data">
   <div class="inlineLabels">
   {% csrf_token %}
   <div class="inline-container">

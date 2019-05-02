@@ -75,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tracker.wsgi.application'
 
-
+SESSION_COOKIE_AGE = 1800
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -136,3 +136,5 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/pics/'
+MEDIA_ROOT = BASE_DIR

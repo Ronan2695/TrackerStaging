@@ -2,7 +2,9 @@ from . import views
 from django.conf.urls import url
 from urllib.parse import unquote
 from django.urls import include, path
-
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 app_name = 'posts'
 
 urlpatterns = [
@@ -12,5 +14,6 @@ urlpatterns = [
     url(r'^tracker_edit/', views.tracker_edit, {}, name='tracker_edit'),
     url(r'^modify/(?P<track_id>[0-9]+)/$', views.tracker_edit, {}, name='modify'),
     url(r'^search/$', views.search, name='search'),
-    url(r'^pending/', views.pending, name='pending'), 
-]
+    url(r'^pending/', views.pending, name='pending'),
+    url(r'^schedule/', views.schedule, name='schedule'),
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

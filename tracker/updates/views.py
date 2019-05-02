@@ -6,7 +6,10 @@ from .models import Update
 from .forms import UpdateArticle
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserChangeForm
-from .models import Schedule
+from .tables import TrackerTable
+from django_tables2 import RequestConfig
+from django_tables2.export.export import TableExport
+
 
 
 def process_updates(request):
@@ -21,9 +24,12 @@ def process_updates(request):
     return render(request, 'updates/process_updates.html',{'updates':updates})
 
 def updates_list(request):
-    updates = Update.objects.all()
-    return render(request,'updates/updates_list.html',{'updates':updates})
+    table = TrackerTable(Update.objects.all(), order_by="-id")
+    #filter = AFilter(request.GET, queryset=table)
+    RequestConfig(request).configure(table)
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table, exclude_columns=('editable','selection'))
+        return exporter.response('table.{}'.format(export_format))
 
-def scheduleview(request):
-    posts = Schedule.objects.all()
-    return render(request, 'posts/engschedule.html',{'posts':posts})
+    return render(request,'updates/updates_list.html',{'table':table})

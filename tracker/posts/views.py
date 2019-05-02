@@ -10,29 +10,31 @@ from .tables import TrackerTable
 from django_tables2 import RequestConfig
 from .filters import TrackerFilter
 from .filters import PendingFilter
+from django_tables2.export.export import TableExport
+from .models import Schedules
 
-
-@login_required
 def quicklinkview(request):
     return render(request, 'posts/quicklinks.html')
 
 #def tracker_list(request):
 #    tracks = Post.objects.all()
 #    return render(request,'posts/tracker_list.html',{'tracks':tracks})
-
 def tracker_list(request):
     table = TrackerTable(Post.objects.all(), order_by="-id")
+    #filter = AFilter(request.GET, queryset=table)
     RequestConfig(request).configure(table)
-    return render(request, 'posts/tracker_list.html', {'table': table})
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table, exclude_columns=('editable','selection'))
+        return exporter.response('table.{}'.format(export_format))
 
+    return render(request, 'posts/tracker_list.html', {'table': table})
 
 
 def tracker_view(request, track_id):
     #post = Post.objects.get(pk=post_id)
     track = get_object_or_404(Post, pk=track_id)
     return render(request, 'posts/tracker_view.html', {'track':track})
-
-
 
 def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'):
     if track_id is not None:
@@ -58,6 +60,14 @@ def pending(request):
     pending_list = Post.objects.all()
     pending_filter = PendingFilter(request.GET, queryset=pending_list)
     return render(request, 'posts/pending.html', {'filter': pending_filter})
+
+def schedule(request):
+    schedules = Schedules.objects.all()
+    return render(request, 'posts/engschedule.html', {'schedules':schedules})
+
+
+
+
 
 
 
@@ -96,82 +106,30 @@ def tracker_edit(request):
         tracker = forms.CreateArticle()
     return render(request, 'posts/tracker_edit.html',{'tracker':tracker})
 
-
-
-def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'):
-    if track_id is not None:
-        track = get_object_or_404(Post, pk=track_id)
-    else:
-        track = Post()
-    tracker = CreateArticle(request.POST or None, instance=track)
-    if request.POST and tracker.is_valid():
-        tracker.save()
-        redirect_url = reverse('posts:tracker_list')
-        return redirect(redirect_url)
-
-    return render(request, template_name, {
-        'tracker': tracker
-    })
-
-
-def modify(request, track_id):
+def tracker_list(request, track_id=None):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-            return redirect('posts:tracker_list')
+        pks = request.POST.getlist("selection")
+        table = TrackerTable(Post.objects.filter(pk__in=pks))
     else:
-        form = UserChangeForm(instance=request.user)
-        args = {'form':form}
-        return render(request, 'posts/modify.html', args)
+        table = TrackerTable(Post.objects.all(), order_by="-id")
+        #filter = AFilter(request.GET, queryset=table)
+    RequestConfig(request).configure(table)
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table, exclude_columns=('editable','selection'))
+        return exporter.response('table.{}'.format(export_format))
+
+    return render(request, 'posts/tracker_list.html', {'table': table})
+
+
+def tracker_list(request):
+    table = TrackerTable(Post.objects.all(), order_by="-id")
+    #filter = AFilter(request.GET, queryset=table)
+    RequestConfig(request).configure(table)
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table, exclude_columns=('editable','selection'))
+        return exporter.response('table.{}'.format(export_format))
+
+    return render(request, 'posts/tracker_list.html', {'table': table})
 '''
-
-#def tracker_edit(request, task_id=None):
-#    if task_id is not None:
-#        track  = Post.objects.get(pk=task_id)
-#    else:
-#        track = Post()
-#
-#    if request.method == 'POST': # If the form has been submitted...
-#        tracker = forms.CreateArticle(request.POST, instance=track)
-#        if tracker.is_valid():
-#            tracker.save()
-#    else:
-#        tracker  = forms.CreateArticle(instance=track)
-#
-#    return render(request,'posts/tracker_edit.html',{'tracker': tracker, 'task_id':task_id})
-
-
-
-#def tracker_edit(request, id=None, template_name='posts/tracker_edit.html'):
-#    if id:
-#        track = get_object_or_404(Post, pk=id)
-#    else:
-#        track = Post()
-#    tracker = CreateArticle(request.POST or None, instance=track)
-#    if request.POST and tracker.is_valid():
-#        tracker.save()
-#
-        # Save was successful, so redirect to another page
-#        redirect_url = reverse('posts:tracker_list')
-#        return redirect(redirect_url)
-#    else:
-#        tracker = CreateArticle(instance=track)
-#
-#    return render(request, template_name, {
-#        'tracker': tracker, 'id':id
-#    })
-
-
-#def modify(request):
-#    if request.method == 'POST':
-#        form = UserChangeForm(request.POST, instance=request.user)
-#
-#        if form.is_valid():
-#            form.save()
-#            return redirect('posts:tracker_list')
-#    else:
-#        form = UserChangeForm(instance=request.user)
-#        args = {'form':form}
-#        return render(request, 'posts/modify.html', args)

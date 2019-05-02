@@ -39,7 +39,26 @@ body {
   margin: 0;
 }
 
+.dropdowns {
+  float: right;
+  overflow: hidden;
+}
+.dropdowns .dropbtns {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  float: right;
+}
+
 .navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #56B2E4;
+}
+.navbar a:hover, .dropdowns:hover .dropbtns {
   background-color: #56B2E4;
 }
 
@@ -68,6 +87,9 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.dropdowns:hover .dropdown-content {
+  display: block;
+}
 
 </style>
 </head>
@@ -76,7 +98,7 @@ body {
 <div class="navbar">
   <a href="{% url 'accounts:home' %}">Home</a>
   <a href="{% url 'updates:updates_list' %}">Process Updates</a>
-  <a href="{% url 'updates:schedule' %}">Engineer Schedule</a>
+  <a href="{% url 'posts:schedule' %}">Engineer Schedule</a>
   <a href="{% url 'posts:quicklinks' %}">Quick Links</a>
   <div class="dropdown">
     <button class="dropbtn">Non PD alerts
@@ -84,8 +106,14 @@ body {
     </button>
     <div class="dropdown-content">
       <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
-      <a href="http://localhost:8000/posts/pending/?Status=pending">Pending Tickets</a> 
+      <a href="http://localhost:8000/posts/pending/?Status=pending">Pending Tickets</a>
       <a href="#">Ticket logs</a>
+    </div>
+  </div>
+  <div class="dropdowns">
+    <button class="dropbtns">{{ user.get_username }}</button>
+    <div class="dropdown-content">
+      <a href="#">Logout</a>
     </div>
   </div>
 </div>

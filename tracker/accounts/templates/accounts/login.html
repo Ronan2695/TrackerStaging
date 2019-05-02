@@ -1,5 +1,9 @@
-<h1><center/>Login</h1>
-
+{% load static %}
+{% load staticfiles%}
+<head>
+<h1><center/>Adroll</h1>
+<title>Login</title>
+</head>
 <form method="POST" style="text-align:center;" action="{ url 'accounts:home' }">
   {% csrf_token %}
 
@@ -8,10 +12,10 @@
   {% endif %}
 
 Name<br />
-  <input type=text name="username" /> <br />
+  <input type=text name="username" title="Enter your user name" /> <br />
 
 Password <br />
-  <input type=password name="password" /><br /><br />
+  <input type=password name="password" title="Enter your password"/><br /><br />
 
   <a href="{% url 'accounts:forgot' %}">Forgot Password?</a> <br /><br />
 

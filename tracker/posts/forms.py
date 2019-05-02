@@ -12,22 +12,24 @@ from django.forms import ModelForm, widgets, DateTimeField, DateField, DateInput
 
 class CreateArticle(forms.ModelForm):
 
-    weeknumber = date.today().isocalendar()[1]
-    Week = forms.IntegerField(initial=weeknumber)
 
+    Year = forms.IntegerField(widget=forms.NumberInput(attrs={'title':'Enter the current Year'}))
+
+    weeknumber = date.today().isocalendar()[1]
+    Week = forms.IntegerField(initial=weeknumber, widget=forms.NumberInput(attrs={'title':'Week number'}))
 
     shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
 
-    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect)
+    Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect(attrs={'title':'The shift in which alert was handled'}))
 
     weekchoice=(('Weekday','Weekday'),('Weekend','Weekend'))
     Day_Of_Week = forms.ChoiceField(choices=weekchoice, widget=forms.RadioSelect)
 
-    #Start_Time = forms.CharField(input_formats=['%H:%M'])
+    Start_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the start time in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
+    #placeholder="HH:MM" size="13" title="Enter the time you spent" pattern=".+:.+"/
+    Responded_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Responded time in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
 
-    #Responded_Time = forms.CharField(input_formats=['%H:%M'])
-
-    #Time_spent = forms.CharField(label="Time spent",help_text=mark_safe('<p title="Your last name please"></p>'), required=True, max_length="4")
+    Time_spent = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Total time spent in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
 
     MONTH_CHOICES = (
     ('January', 'January'),
@@ -48,7 +50,7 @@ class CreateArticle(forms.ModelForm):
     #current_month = months[today.month]
     #months = today.month
     Month_empty = tuple(BLANK_CHOICE_DASH + list(MONTH_CHOICES))
-    Month = forms.ChoiceField(choices=(Month_empty))
+    Month = forms.ChoiceField(choices=(Month_empty), widget=forms.Select(attrs={'title':'Enter the current Month'}))
 
     Res_team = (
     ('B2B - Core', 'B2B - Core'),
@@ -79,10 +81,10 @@ class CreateArticle(forms.ModelForm):
     ('Webapp', 'Webapp'),
 )
     Res_team_empty =  tuple(BLANK_CHOICE_DASH + list(Res_team))
-    Responsible_Team = forms.ChoiceField(choices=(Res_team_empty))
+    Responsible_Team = forms.ChoiceField(choices=(Res_team_empty), widget=forms.Select(attrs={'title':'Enter the Responsible Team'}))
 
     fse_alarm=(('Yes','Yes'),('No','No'))
-    False_Alarm = forms.ChoiceField(choices=fse_alarm, widget=forms.RadioSelect)
+    False_Alarm = forms.ChoiceField(choices=fse_alarm, widget=forms.RadioSelect(attrs={'title':'Was the alert genuine?'}))
 
     inc_type = (
     ('Alert', 'Alert'),
@@ -92,10 +94,10 @@ class CreateArticle(forms.ModelForm):
     ('Task', 'Task'),
 )
     inc_type_empty = tuple(BLANK_CHOICE_DASH + list(inc_type))
-    Incident_Type = forms.ChoiceField(choices=(inc_type_empty))
+    Incident_Type = forms.ChoiceField(choices=(inc_type_empty), widget=forms.Select(attrs={'title':'Enter the type of incident'}))
 
     prior=(('P0','P0'),('P1','P1'),('P2','P2'),('None','None'))
-    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect)
+    Priority = forms.ChoiceField(choices=prior, widget=forms.RadioSelect(attrs={'title':'The priority of alert as per policy'}))
 
 
 
@@ -106,7 +108,10 @@ class CreateArticle(forms.ModelForm):
     ('Storm Monitoring', 'Storm Monitoring'),
 )
     name_empty = tuple(BLANK_CHOICE_DASH + list(name))
-    Name = forms.ChoiceField(choices=(name_empty))
+    Name = forms.ChoiceField(choices=(name_empty), widget=forms.Select(attrs={'title':'Enter the name of the incident'}))
+    #,widget=forms.TextInput(attrs={'title':'last name'})
+
+    If_Others_Please_Specify = forms.CharField(initial=weeknumber, widget=forms.TextInput(attrs={'title':'If you entered others, Please shed some light.'}))
 
     envi = (
     ('Production', 'Production'),
@@ -118,7 +123,7 @@ class CreateArticle(forms.ModelForm):
     ('NA', 'NA'),
 )
     envi_empty = tuple(BLANK_CHOICE_DASH + list(envi))
-    Environment = forms.ChoiceField(choices=(envi_empty))
+    Environment = forms.ChoiceField(choices=(envi_empty), widget=forms.Select(attrs={'title':'Enter the incident Environment'}))
 
     hosttype = (
     ('AWS Batch', 'AWS Batch'),
@@ -146,7 +151,7 @@ class CreateArticle(forms.ModelForm):
     ('Thrift Cluster', 'Thrift Cluster'),
 )
     hosttype_empty = tuple(BLANK_CHOICE_DASH + list(hosttype))
-    Host_Type = forms.ChoiceField(choices=(hosttype_empty))
+    Host_Type = forms.ChoiceField(choices=(hosttype_empty), widget=forms.Select(attrs={'title':'Enter the host type'}))
 
     source = (
     ('AWS', 'AWS'),
@@ -163,10 +168,10 @@ class CreateArticle(forms.ModelForm):
     ('Threatstack', 'Threatstack'),
 )
     source_empty = tuple(BLANK_CHOICE_DASH + list(source))
-    Source_of_Alert = forms.ChoiceField(choices=(source_empty))
+    Source_of_Alert = forms.ChoiceField(choices=(source_empty), widget=forms.Select(attrs={'title':'Enter the source of alert'}))
 
     mode=[('Email','Email'),('Manual Check','Manual Check'),('Slack','Slack')]
-    Mode_of_Alert = forms.ChoiceField(choices=mode, widget=forms.RadioSelect, initial='mc')
+    Mode_of_Alert = forms.ChoiceField(choices=mode, widget=forms.RadioSelect(attrs={'title':'Enter the mode of alert'}), initial="Manual Check")
 
     engineer= (
     ('Ajmeer Khaja', 'Ajmeer Khaja'),
@@ -184,12 +189,12 @@ class CreateArticle(forms.ModelForm):
     ('Vijay Mohan', 'Vijay Mohan'),
 )
     engineer_empty = tuple(BLANK_CHOICE_DASH + list(engineer))
-    NOC_Engineer = forms.ChoiceField(choices=(engineer_empty))
+    NOC_Engineer = forms.ChoiceField(choices=(engineer_empty),widget=forms.Select(attrs={'title':'The NOC Engineer who handled the incident'}))
 
     escalate=[('Yes','Yes'),('No','No')]
     #Escalated = forms.ChoiceField(choices=escalate, widget=forms.RadioSelect, initial='no')
     escalate_empty = tuple(BLANK_CHOICE_DASH + list(escalate))
-    Escalated = forms.ChoiceField(choices=(escalate_empty), initial='No')
+    Escalated = forms.ChoiceField(choices=(escalate_empty), initial='No', widget=forms.Select(attrs={'title':'Was the alert escalated?'}))
 
     escreason = (
     ('Code level issue', 'Code level issue'),
@@ -201,7 +206,7 @@ class CreateArticle(forms.ModelForm):
     ('NA', 'NA'),
 )
     escreason_empty = tuple(BLANK_CHOICE_DASH + list(escreason))
-    Escalated_Reason = forms.ChoiceField(choices=(escreason_empty), required=False)
+    Escalated_Reason = forms.ChoiceField(choices=(escreason_empty), required=False, widget=forms.Select(attrs={'title':'The reson for escalation'}))
 
     stat = (
     ('Resolved', 'Resolved'),
@@ -210,7 +215,7 @@ class CreateArticle(forms.ModelForm):
     ('Handed over', 'Handed over')
     )
     stat_empty = tuple(BLANK_CHOICE_DASH + list(stat))
-    Status = forms.ChoiceField(choices=(stat_empty))
+    Status = forms.ChoiceField(choices=(stat_empty),widget=forms.Select(attrs={'title':'Current status of the incident'}))
 
     escto = (
     ('B2B core', 'B2B core'),
@@ -241,7 +246,7 @@ class CreateArticle(forms.ModelForm):
     ('Webappp', 'Webappp'),
 )
     escto_empty = tuple(BLANK_CHOICE_DASH + list(escto))
-    Escalated_to = forms.ChoiceField(choices=(escto_empty), required=False)
+    Escalated_to = forms.ChoiceField(choices=(escto_empty), required=False, widget=forms.Select(attrs={'title':'Enter the Team to whom the alert was escalated'}))
 
     resby = (
     ('B2B core', 'B2B core'),
@@ -272,8 +277,9 @@ class CreateArticle(forms.ModelForm):
     ('Webappp', 'Webappp'),
 )
     resby_empty = tuple(BLANK_CHOICE_DASH + list(resby))
-    Resolved_by_Team = forms.ChoiceField(choices=(resby_empty))
+    Resolved_by_Team = forms.ChoiceField(choices=(resby_empty), widget=forms.Select(attrs={'title':'Enter the Team which resolved the alert'}))
 
+    Resolved_by_Engineer = forms.CharField(widget=forms.TextInput(attrs={'title':'The Engineer who resolved the alert'}))
 
     class Meta:
         model = models.Post

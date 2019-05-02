@@ -1,7 +1,7 @@
 # tutorial/tables.py
 from __future__ import unicode_literals
 import django_tables2 as tables
-from .models import Post
+from .models import Update
 from . import models
 from django_tables2.utils import A
 from . import views
@@ -23,7 +23,7 @@ class TrackerTable(tables.Table):
 
 
     class Meta:
-        model = models.Post
+        model = models.Update
         template_name = 'django_tables2/semantic.html'
         sequence = ('selection','editable','id','...')
         #attrs = {'class': 'table table-bordered', 'tbody': {'id': 'value'}}
