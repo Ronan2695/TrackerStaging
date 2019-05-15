@@ -9,9 +9,11 @@ from django.conf import settings
 app_name = 'accounts'
 
 urlpatterns = [
-    url(r'^signup/', views.signupview, name='signup'),
     url(r'^login/', views.loginview, name='login'),
+    url(r'^logout/', views.logoutview, name='logout'),
     url(r'^home/', views.homeview, name='home'),
     url(r'^forgot/', views.forgotview, name='forgot'),
     url(r'^usercreated/', views.usercreatedview, name='usercreated'),
+    url(r'^password/$', views.change_password, name='change_password'),
+    url(r'^password_changed/$', views.password_changed, name='password_changed'),
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

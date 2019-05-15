@@ -4,19 +4,20 @@
 <h1><center/>Adroll</h1>
 <title>Login</title>
 </head>
-<form method="POST" style="text-align:center;" action="{ url 'accounts:home' }">
+<form method="POST" style="text-align:center;" action="{ url 'accounts:login' }">
   {% csrf_token %}
 
   {% if request.GET.next %}
   <input type="hidden" name="next" value={{ request.GET.next }} />
   {% endif %}
 
-Name<br />
+Username:<br />
   <input type=text name="username" title="Enter your user name" /> <br />
 
-Password <br />
+Password: <br />
   <input type=password name="password" title="Enter your password"/><br /><br />
 
   <a href="{% url 'accounts:forgot' %}">Forgot Password?</a> <br /><br />
 
   <input type=submit value='Login' /><br /><br />
+</form>

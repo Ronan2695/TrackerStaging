@@ -134,7 +134,7 @@ input {
 
 <body>
 <div class="border">
-<form class="site-form" action="{% url 'updates:process_updates' %}" method="post" enctype="multipart/form-data">
+<form class="site-form" method="post" enctype="multipart/form-data">
   <div class="inlineLabels">
   {% csrf_token %}
   <div class="inline-container">
@@ -144,7 +144,7 @@ input {
           <b>{{ field.label_tag }}</b>
         </div>
         <div class="col-75">
-          </b>{{ field }}</br>
+        </b>{{ field }}</br>
         </div>
     </div>
   {% endfor %}

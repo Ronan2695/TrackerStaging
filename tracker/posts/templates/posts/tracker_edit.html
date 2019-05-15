@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="{% static 'js/toggle.js' %}"></script>
+  <script src="{% static 'js/inctoggle.js' %}"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -25,6 +26,9 @@
 * {
   box-sizing: border-box;
 }
+
+
+
 
 input[type=text], select, textarea {
   width: 300%;
@@ -143,7 +147,7 @@ input {
     {% for field in tracker %}
       <div class="row">
           <div class="col-25">
-            <b><label title="{{ field.name.help_text }}" for="{{ field.id_for_label }}"> {{ field.label_tag }}</label></b>
+            <b><label title="{{ field.name.help_text }}" for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></b>
           </div>
           <div class="col-75">
           </b>{{ field }}</br>

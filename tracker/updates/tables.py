@@ -9,11 +9,11 @@ from django.utils.safestring import mark_safe
 from django_tables2.export.export import TableExport
 
 
-class TrackerTable(tables.Table):
+class UpdateTable(tables.Table):
     export_formats = ['csv', 'xls', 'xlsx', 'json']
     id = tables.Column()
-    id = tables.LinkColumn('posts:tracker_view',args=[A('pk')], empty_values=())
-    editable = tables.LinkColumn('posts:modify',args=[A('pk')] , empty_values=(), verbose_name='')
+    id = tables.LinkColumn('updates:update_view',args=[A('pk')], empty_values=())
+    editable = tables.LinkColumn('updates:modify',args=[A('pk')] , empty_values=(), verbose_name='')
     #selection = tables.CheckBoxColumn(accessor='pk', attrs = { "th__input":{"onclick": "toggle(this)"}},orderable=False)
     selection = tables.CheckBoxColumn(accessor='pk', attrs = { "th__input":{"onclick": "toggle(this)"}})
     def render_editable(self):

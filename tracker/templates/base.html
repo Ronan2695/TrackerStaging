@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -43,6 +44,7 @@ body {
   float: right;
   overflow: hidden;
 }
+
 .dropdowns .dropbtns {
   font-size: 16px;
   border: none;
@@ -107,15 +109,20 @@ body {
     <div class="dropdown-content">
       <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
       <a href="http://localhost:8000/posts/pending/?Status=pending">Pending Tickets</a>
-      <a href="#">Ticket logs</a>
     </div>
   </div>
   <div class="dropdowns">
-    <button class="dropbtns">{{ user.get_username }}</button>
+    <button class="dropbtns">{{ user.get_username }}<i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="#">Logout</a>
+      <a href="{% url 'accounts:change_password' %}" style="font-size:95%;">Change Password</a>
+      <a href="#" onClick="document.getElementById('logout').submit()">Logout</a>
     </div>
-  </div>
+    </div>
+
+      <form id="logout" method="POST" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+        <input type="hidden">
+      </form>
 </div>
 </body>
 {% block content %}

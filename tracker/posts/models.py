@@ -13,8 +13,9 @@ class Post(models.Model):
     years = today.year
     Year = models.PositiveSmallIntegerField(blank=False, null=False, db_column='yeer',default=years)
 
-    weeknumber = date.today().isocalendar()[1]
-    Week = models.IntegerField(blank=False, null=True, db_column='weekno',default=weeknumber)
+    weeknumbers = date.today().isocalendar()[1]
+    weeknumber = "Week {}".format(weeknumbers)
+    Week = models.CharField(max_length=20,blank=False, null=True, db_column='weekno',default=weeknumber)
 
     today = datetime.date.today()
     x=calendar.month_name[today.month]
@@ -22,19 +23,19 @@ class Post(models.Model):
     #Date = models.DateField(_("Date"), default=datetime.date.today, null=False, blank=False, db_column='dete')
 
     #inidate=timezone.now().date()
-    inidate=timezone.now
+    inidate=datetime.date.today().strftime('%Y-%m-%d')
     Date = models.DateField(null=False, blank=False, db_column='dete',default=inidate)
 
 
     currenttime = datetime.datetime.now().hour
     y = ""
     if currenttime in range (5, 14, 1):
-        y = ("apac")
+        y = ("APAC")
     elif currenttime in range (14, 22, 1):
-        y = ("emea")
+        y = ("EMEA")
     elif currenttime in range (22, 5, 1):
-        y = ("usa")
-    Shift = models.TextField(null=False, db_column='shyft', default=y)
+        y = ("USA")
+    Shift = models.TextField(null=False, db_column='shyft', blank=True, default=y)
 
     weekno = datetime.datetime.today().weekday()
     if weekno < 5:
@@ -42,7 +43,6 @@ class Post(models.Model):
     else:
         x = ("Weekend")
     Day_Of_Week = models.TextField(null=False, db_column='dayofweek', default=x)
-
     Start_Time = models.CharField(max_length=8,blank=False,null=True,db_column='stime')
     Responded_Time =  models.CharField(max_length=8,blank=False,null=True,db_column='rtime')
     Time_spent = models.CharField(max_length=8,blank=False,null=True, db_column='wtime')
@@ -50,8 +50,10 @@ class Post(models.Model):
     False_Alarm = models.TextField(null=False, db_column='falsealarm',default="No")
     Incident_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='itype')
     Priority = models.CharField(max_length=10 ,null=False, db_column='priority', default='None')
-    Name = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='name')
-    If_Others_Please_Specify = models.CharField(max_length=100,null=False, db_column='others')
+    General_Health_Check = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='ghcname')
+    Alert = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='alertname')
+    Task = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='taskname')
+    If_Others_Please_Specify = models.CharField(max_length=100, null=False, blank=True, db_column='others')
     Description = models.TextField(null=True, blank=False, db_column='descrp')
     Environment = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='env')
     Host_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='hostype')
@@ -59,11 +61,11 @@ class Post(models.Model):
     Source_of_Alert = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='source')
     Mode_of_Alert = models.TextField(null=False, db_column='mode', default="Manual Check")
     NOC_Engineer = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='engineer')
-    Remediation = models.TextField(null=True, blank=False, db_column='remediation')
+    Remediation = models.TextField(null=True, blank=True, db_column='remediation')
     Escalated = models.CharField(max_length=100, null=False, blank=False, default='No', db_column='escalated')
     Escalated_Reason = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='escreason')
     Status = models.CharField(max_length=100, null=True, blank=True, default='Resolved', db_column='status')
-    Escalated_to = models.CharField(max_length=100, null=True, blank=False, default='NA', db_column='escalatedto')
+    Escalated_to = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='escalatedto')
     Resolved_by_Team = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='resolvedteam')
     Resolved_by_Engineer = models.CharField(max_length=30,null=False, default='noc', db_column='resolvedby')
     Resolution = models.TextField(null=True, blank=False, db_column='resolution')

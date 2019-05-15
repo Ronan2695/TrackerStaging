@@ -5,8 +5,12 @@ from django_tables2.utils import A
 from . import views
 from django.contrib.auth.models import User
 import django_filters
+from distutils.util import strtobool
+
+BOOLEAN_CHOICES = (('false', 'False'), ('true', 'True'),)
 
 class TrackerFilter(django_filters.FilterSet):
+    #Date = django_filters.TypedMultipleChoiceFilter(choices=BOOLEAN_CHOICES,coerce=strtobool)
     class Meta:
         model = models.Post
         fields = '__all__'

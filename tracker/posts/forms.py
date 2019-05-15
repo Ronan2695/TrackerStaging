@@ -15,21 +15,18 @@ class CreateArticle(forms.ModelForm):
 
     Year = forms.IntegerField(widget=forms.NumberInput(attrs={'title':'Enter the current Year'}))
 
-    weeknumber = date.today().isocalendar()[1]
-    Week = forms.IntegerField(initial=weeknumber, widget=forms.NumberInput(attrs={'title':'Week number'}))
-
-    shift_choices=(('apac','APAC'),('emea','EMEA'),('usa','USA'))
+    shift_choices=(('APAC','APAC'),('EMEA','EMEA'),('USA','USA'))
 
     Shift = forms.ChoiceField(choices=shift_choices, widget=forms.RadioSelect(attrs={'title':'The shift in which alert was handled'}))
 
     weekchoice=(('Weekday','Weekday'),('Weekend','Weekend'))
     Day_Of_Week = forms.ChoiceField(choices=weekchoice, widget=forms.RadioSelect)
 
-    Start_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the start time in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
+    Start_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the start time in 24 hour time formant'}))
     #placeholder="HH:MM" size="13" title="Enter the time you spent" pattern=".+:.+"/
-    Responded_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Responded time in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
+    Responded_Time = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Responded time in 24 hour time formant'}))
 
-    Time_spent = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Total time spent in 24 hour time formant','pattern':'([01]?[0-9]|2[0-3]):[0-5][0-9]'}))
+    Time_spent = forms.IntegerField(widget=forms.DateInput(attrs={'placeholder':'HH:MM','title':'Mention the Total time spent'}))
 
     MONTH_CHOICES = (
     ('January', 'January'),
@@ -90,7 +87,6 @@ class CreateArticle(forms.ModelForm):
     ('Alert', 'Alert'),
     ('GHC', 'GHC'),
     ('Other', 'Other'),
-    ('Security Audit', 'Security Audit'),
     ('Task', 'Task'),
 )
     inc_type_empty = tuple(BLANK_CHOICE_DASH + list(inc_type))
@@ -101,17 +97,57 @@ class CreateArticle(forms.ModelForm):
 
 
 
-    name = (
+    GHC = (
     ('Celery Dashboard check', 'Celery Dashboard check'),
     ('Dashboard monitoring', 'Dashboard monitoring'),
     ('Pipeline monitoring', 'Pipeline monitoring'),
     ('Storm Monitoring', 'Storm Monitoring'),
 )
-    name_empty = tuple(BLANK_CHOICE_DASH + list(name))
-    Name = forms.ChoiceField(choices=(name_empty), widget=forms.Select(attrs={'title':'Enter the name of the incident'}))
+    ghc_empty = tuple(BLANK_CHOICE_DASH + list(GHC))
+    General_Health_Check = forms.ChoiceField(choices=(ghc_empty), required=False, widget=forms.Select(attrs={'title':'Enter the name of the GHC'}))
     #,widget=forms.TextInput(attrs={'title':'last name'})
 
-    If_Others_Please_Specify = forms.CharField(initial=weeknumber, widget=forms.TextInput(attrs={'title':'If you entered others, Please shed some light.'}))
+
+    Alert = (
+    ('AWS Notifications', 'AWS Notifications'),
+    ('Celery Infra Alerts', 'Celery Infra Alerts'),
+    ('Celery Task Failure', 'Celery Task Failure'),
+    ('CPU Utilization', 'CPU Utilization'),
+    ('Disk Usage', 'Disk Usage'),
+    ('Dotcom Alerts', 'Dotcom Alerts'),
+    ('ECR Capacity', 'ECR Capacity'),
+    ('EMR Job Failure', 'EMR Job Failure'),
+    ('Hbase Alert', 'Hbase Alert'),
+    ('Jenkins Job Failure', 'Jenkins Job Failure'),
+    ('Outage', 'Outage'),
+    ('Segment Error', 'Segment Error'),
+    ('Storm Alert', 'Storm Alert'),
+    ('Threatstack Alert', 'Threatstack Alert'),
+    ('Thrift Alert', 'Thrift Alert'),
+)
+    alert_empty = tuple(BLANK_CHOICE_DASH + list(Alert))
+    Alert = forms.ChoiceField(choices=(alert_empty), required=False, widget=forms.Select(attrs={'title':'Enter the name of the Alert'}))
+
+
+
+    Task = (
+    ('Backup Audit', 'Backup Audit'),
+    ('Deployment', 'Deployment'),
+    ('EMR Job Check', 'EMR Job Check'),
+    ('High Intent Segment Creation', 'High Intent Segment Creation'),
+    ('Jenkins Job Failure', 'Jenkins Job Failure'),
+    ('Long Running EMR Check', 'Long Running EMR Check'),
+    ('Post-Deploy Health Check', 'Post-Deploy Health Check'),
+    ('Quentin Job Failures validation', 'Quentin Job Failures validation'),
+    ('Sentry Notification', 'Sentry Notification'),
+    ('Spend Monitoring', 'Spend Monitoring'),
+)
+    task_empty = tuple(BLANK_CHOICE_DASH + list(Task))
+    Task = forms.ChoiceField(choices=(task_empty), required=False, widget=forms.Select(attrs={'title':'Enter the name of the Task'}))
+
+
+    If_Others_Please_Specify = forms.CharField(widget=forms.TextInput(attrs={'title':'If you entered the value others, Please shed some light.'}))
+
 
     envi = (
     ('Production', 'Production'),
@@ -130,7 +166,7 @@ class CreateArticle(forms.ModelForm):
     ('AWS ECS', 'AWS ECS'),
     ('AWS EC2', 'AWS EC2'),
     ('AWS Elasticache', 'AWS Elasticache'),
-    ('emr', 'AWS EMR'),
+    ('AWS EMR', 'AWS EMR'),
     ('AWS RDS', 'AWS RDS'),
     ('Batchie Patchie', 'Batchie Patchie'),
     ('Celery Worker', 'Celery Worker'),
@@ -147,7 +183,7 @@ class CreateArticle(forms.ModelForm):
     ('Puppet', 'Puppet'),
     ('puppet', 'Puppet'),
     ('Quentin', 'Quentin'),
-    ('Strom cluster', 'Strom cluster'),
+    ('Storm cluster', 'Storm cluster'),
     ('Thrift Cluster', 'Thrift Cluster'),
 )
     hosttype_empty = tuple(BLANK_CHOICE_DASH + list(hosttype))
@@ -187,6 +223,7 @@ class CreateArticle(forms.ModelForm):
     ('Thirumalaibarathi Thangavelu', 'Thirumalaibarathi Thangavelu'),
     ('Umashree Ramesh', 'Umashree Ramesh'),
     ('Vijay Mohan', 'Vijay Mohan'),
+    ('noc', 'noc'),
 )
     engineer_empty = tuple(BLANK_CHOICE_DASH + list(engineer))
     NOC_Engineer = forms.ChoiceField(choices=(engineer_empty),widget=forms.Select(attrs={'title':'The NOC Engineer who handled the incident'}))
@@ -284,6 +321,6 @@ class CreateArticle(forms.ModelForm):
     class Meta:
         model = models.Post
         fields = '__all__'
-        field_order = ['Year','Week','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','Priority','If_Others_Please_Specify','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
+        field_order = ['Year','Week','Month','Date','Shift','Day_Of_Week','Time','Responded_Time','Time_spent','Complexity','Responsible_Team','False_alarm','Incident_Type','If_Others_Please_Specify','Priority','Description','Environment','Host_Type','Host_Name','Source_of_Alert','Mode_of_Alert','NOC_Engineer','Remediation','Escalated',
         'Escalated_Reason','Status','Escalated_to','Resolved_by_Team','Resolved_by_Engineer','Resolution','Comments']
         exclude = ['Ticket_Number','author']

@@ -13,12 +13,14 @@ from .filters import PendingFilter
 from django_tables2.export.export import TableExport
 from .models import Schedules
 
+@login_required
 def quicklinkview(request):
     return render(request, 'posts/quicklinks.html')
 
 #def tracker_list(request):
 #    tracks = Post.objects.all()
 #    return render(request,'posts/tracker_list.html',{'tracks':tracks})
+@login_required
 def tracker_list(request):
     table = TrackerTable(Post.objects.all(), order_by="-id")
     #filter = AFilter(request.GET, queryset=table)
@@ -31,11 +33,14 @@ def tracker_list(request):
     return render(request, 'posts/tracker_list.html', {'table': table})
 
 
+
+@login_required
 def tracker_view(request, track_id):
     #post = Post.objects.get(pk=post_id)
     track = get_object_or_404(Post, pk=track_id)
     return render(request, 'posts/tracker_view.html', {'track':track})
 
+@login_required
 def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'):
     if track_id is not None:
         track = get_object_or_404(Post, pk=track_id)
@@ -51,16 +56,19 @@ def tracker_edit(request, track_id=None, template_name='posts/tracker_edit.html'
         'tracker': tracker
     })
 
+@login_required
 def search(request):
     tracker_list = Post.objects.all()
     tracker_filter = TrackerFilter(request.GET, queryset=tracker_list)
     return render(request, 'posts/search.html', {'filter': tracker_filter})
 
+@login_required
 def pending(request):
     pending_list = Post.objects.all()
     pending_filter = PendingFilter(request.GET, queryset=pending_list)
     return render(request, 'posts/pending.html', {'filter': pending_filter})
 
+@login_required
 def schedule(request):
     schedules = Schedules.objects.all()
     return render(request, 'posts/engschedule.html', {'schedules':schedules})
