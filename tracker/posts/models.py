@@ -53,7 +53,7 @@ class Post(models.Model):
     General_Health_Check = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='ghcname')
     Alert = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='alertname')
     Task = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='taskname')
-    If_Others_Please_Specify = models.CharField(max_length=100, null=False, blank=True, db_column='others')
+    If_Others_Please_Specify = models.CharField(max_length=100, null=False, blank=True, db_column='others', default='NA')
     Description = models.TextField(null=True, blank=False, db_column='descrp')
     Environment = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='env')
     Host_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='hostype')
