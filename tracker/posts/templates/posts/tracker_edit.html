@@ -7,6 +7,7 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="{% static 'js/toggle.js' %}"></script>
   <script src="{% static 'js/inctoggle.js' %}"></script>
+  <script src="{% static 'js/pchild.js' %}"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -27,9 +28,6 @@
   box-sizing: border-box;
 }
 
-
-
-
 input[type=text], select, textarea {
   width: 300%;
   padding: 4px;
@@ -39,9 +37,9 @@ input[type=text], select, textarea {
 }
 
 label {
-  padding: 12px 12px 12px 0;
+  padding: 1px 12px 12px 0;
   display: inline-block;
-  margin-left: -40px;
+  margin-left: -80px;
 }
 
 input[type=submit] {
@@ -74,18 +72,6 @@ input[type=reset]:hover {
   background-color: #4C596B;
 }
 
-.col-25 {
-  float: left;
-  width: 15%;
-  margin-top: 10px;
-}
-
-.col-75 {
-  float: left;
-  width: 20%;
-  margin-top: 37px;
-  display: inline-block;
-}
 
 /* Clear floats after the columns */
 .row:after {
@@ -121,7 +107,7 @@ input[type=reset]:hover {
 }
 
 form {
-        width: 80%;
+
         margin-left : 27%
     }
 
@@ -129,39 +115,82 @@ form {
   list-style:none;
 }
 
-input {
-  margin: 0;
-  display: inline-block;
+form, fieldset{
+  width:100%;
 }
 
+fieldset{
+  border: 0 none;
+  display: flex;
+  padding: 5px 0;
+  margin: 0;
 }
+
+
+label{
+  width: 125px;
+  white-space: pre-wrap;
+  overflow: visible;
+}
+
+input{
+  flex: 0 2 0;
+}
+
+ul#shiftid li{
+ display: inline-block;
+ width: 1px;
+ margin-left: 89px;
+ margin: -90px 0 0px 90px;
+ clear: none;
+ }
+
+ul#weekid li{
+ display: inline-block;
+ width: 1px;
+ margin-left: 89px;
+ margin: -90px 0 0px 90px;
+ }
+
+ul#falseid li{
+ display: inline-block;
+ width: 1px;
+ margin-left: 89px;
+ margin: -90px 0 20px 90px;
+ }
+
+ul#modeid li{
+ display: inline-block;
+ width: 1px;
+ margin-left: 89px;
+ margin: -90px 0 20px 90px;
+ }
+
+ul#priorityid li{
+ display: inline-block;
+ width: 0%;
+ margin-left: 89px;
+ margin: -90px 0 20px 90px;
+ }
+
 </style>
 
 <body>
 <div class="border">
 
 <form class="site-form" method="post" enctype="multipart/form-data">
+  <fieldset>
   <div class="inlineLabels">
   {% csrf_token %}
-  <div class="inline-container">
-    {% for field in tracker %}
-      <div class="row">
-          <div class="col-25">
-            <b><label title="{{ field.name.help_text }}" for="{{ field.id_for_label }}"> {{ field.label_tag }} </label></b>
-          </div>
-          <div class="col-75">
-          </b>{{ field }}</br>
-          </div>
-      </div>
-
-    {% endfor %}
-</div>
-
+    {{ tracker.as_p }}
+  </div>
+  </fieldset>
   <div class="boxhead">
     <input type="submit" value="Submit">&nbsp;
       <input type="reset" value="Reset">&nbsp;
     <button><a href="{% url 'posts:tracker_list' %}">Back to list</a></button>
   </div>
+
 </form>
 </div>
 </body>
