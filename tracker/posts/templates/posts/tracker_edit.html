@@ -21,6 +21,15 @@
             });
         });
 </script>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
   <title>Add new!</title>
 </head>
 <style>
@@ -89,14 +98,6 @@ input[type=reset]:hover {
   margin-left: 400px;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
-    width: 100%;
-    margin-top: 0;
-  }
-}
-
 .boxhead a {
     color: #2C9FDD;
     text-decoration: none;
@@ -107,7 +108,6 @@ input[type=reset]:hover {
 }
 
 form {
-
         margin-left : 27%
     }
 
@@ -173,11 +173,57 @@ ul#priorityid li{
  margin: -90px 0 20px 90px;
  }
 
+ .sidenav {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   background-color: #111;
+   overflow-x: hidden;
+   transition: 0.5s;
+   padding-top: 60px;
+ }
+
+ .sidenav a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: 25px;
+   color: #818181;
+   display: block;
+   transition: 0.3s;
+ }
+
+ .sidenav a:hover {
+   color: #f1f1f1;
+ }
+
+ .sidenav .closebtn {
+   position: absolute;
+   top: 0;
+   right: 25px;
+   font-size: 36px;
+   margin-left: 50px;
+ }
+
+ @media screen and (max-height: 450px) {
+   .sidenav {padding-top: 15px;}
+   .sidenav a {font-size: 18px;}
+ }
 </style>
 
 <body>
-<div class="border">
+  <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
 
+<div class="border">
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 <form class="site-form" method="post" enctype="multipart/form-data">
   <fieldset>
   <div class="inlineLabels">
@@ -193,5 +239,6 @@ ul#priorityid li{
 
 </form>
 </div>
+
 </body>
 </html>

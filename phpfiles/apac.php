@@ -5,7 +5,7 @@ $password = "Burger02";
 $dbname = "Adroll";
 $date = date('Y-m-d');
 $weekendDay = false;
-$day = date("D", strtotime($date));
+$day = date("D", strtotime("$date"));
 if($day == 'Sat' || $day == 'Sun'){
     $weekendDay = 'Weekend';
 }

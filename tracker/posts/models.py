@@ -59,7 +59,7 @@ class Post(models.Model):
     Host_Type = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='hostype')
     Host_Name = models.CharField(max_length=100, null=True, blank=False, db_column='hostname')
     Source_of_Alert = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='source')
-    Mode_of_Alert = models.TextField(null=False, db_column='mode', default="Manual Check")
+    Mode_of_Alert = models.TextField(null=False, db_column='mode', default="Manual")
     NOC_Engineer = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='engineer')
     Remediation = models.TextField(null=True, blank=True, default='NA', db_column='remediation',)
     Escalated = models.CharField(max_length=100, null=False, blank=False, default='No', db_column='escalated')
