@@ -88,7 +88,7 @@ DATABASES = {
        'ENGINE': 'django.db.backends.mysql',
        'NAME': 'Adroll',
        'USER': 'root',
-       'PASSWORD': 'Burger02!',
+       'PASSWORD': 'Burger02',
        'HOST': 'localhost',
        'PORT': '3306',
    }
@@ -147,4 +147,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 try:
     from local_settings import *
 except ImportError:
-    pass    
+    pass
