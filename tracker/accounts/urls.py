@@ -9,7 +9,6 @@ from django.conf import settings
 app_name = 'accounts'
 
 urlpatterns = [
-    url(r'^login/', views.loginview, name='login'),
     url(r'^logout/', views.logoutview, name='logout'),
     url(r'^home/', views.homeview, name='home'),
     url(r'^forgot/', views.forgotview, name='forgot'),

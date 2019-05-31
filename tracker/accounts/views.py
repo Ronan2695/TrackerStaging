@@ -24,9 +24,7 @@ def loginview(request):
 def logoutview(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('accounts:login')
-
-
+        return render(request, 'accounts/login.html')
 
 @login_required
 def homeview(request):
@@ -36,7 +34,6 @@ def homeview(request):
         return render(request, 'accounts/home.html')
 
 
-@login_required
 def forgotview(request):
     return render(request, 'accounts/password_reset_form.html')
 
@@ -60,7 +57,7 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', {
         'form': form
     })
-    
+
 @login_required
 def password_changed(request):
     return render(request, 'accounts/password_changed.html')
