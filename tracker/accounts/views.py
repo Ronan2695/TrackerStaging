@@ -13,8 +13,6 @@ def loginview(request):
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             login(request, user)
-            if 'next' in request.POST:
-                return redirect(request.POST['next'])
             return render(request, 'accounts/home.html')
         else:
             return render(request, 'accounts/login.html', {'error':'Please check the creds'})
@@ -24,7 +22,7 @@ def loginview(request):
 def logoutview(request):
     if request.method == 'POST':
         logout(request)
-        return render(request, 'accounts/login.html')
+        return render(request, 'accounts/logout.html')
 
 @login_required
 def homeview(request):

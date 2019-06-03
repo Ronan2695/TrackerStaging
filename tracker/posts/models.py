@@ -27,13 +27,14 @@ class Post(models.Model):
     Date = models.DateField(null=False, blank=False, db_column='dete',default=inidate)
 
 
-    currenttime = datetime.datetime.now().hour
-    y = ""
-    if currenttime in range (5, 14, 1):
+    curtime = datetime.datetime.now()
+    currenttime = curtime.hour
+    y=''
+    if currenttime in range (8, 15, 1):
         y = ("APAC")
-    elif currenttime in range (14, 22, 1):
+    elif currenttime in range (16, 23, 1):
         y = ("EMEA")
-    elif currenttime in range (22, 5, 1):
+    elif currenttime in range (0, 7, 1):
         y = ("USA")
     Shift = models.TextField(null=False, db_column='shyft', blank=True, default=y)
 
