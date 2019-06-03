@@ -29,11 +29,11 @@ class Post(models.Model):
 
     curtime = datetime.datetime.now()
     currenttime = curtime.hour
-    if currenttime in range (8, 15, 1):
+    if currenttime in range (8, 16, 1):
         y = "APAC"
-    elif currenttime in range (16, 23, 1):
+    elif currenttime in range (16, 24, 1):
         y = "EMEA"
-    elif currenttime in range (0, 7, 1):
+    elif currenttime in range (0, 8, 1):
         y = "USA"
     Shift = models.TextField(null=False, db_column='shyft', blank=True, default=y)
 
