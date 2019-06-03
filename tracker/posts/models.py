@@ -29,13 +29,12 @@ class Post(models.Model):
 
     curtime = datetime.datetime.now()
     currenttime = curtime.hour
-    y=''
     if currenttime in range (8, 15, 1):
-        y = ("APAC")
+        y = "APAC"
     elif currenttime in range (16, 23, 1):
-        y = ("EMEA")
+        y = "EMEA"
     elif currenttime in range (0, 7, 1):
-        y = ("USA")
+        y = "USA"
     Shift = models.TextField(null=False, db_column='shyft', blank=True, default=y)
 
     weekno = datetime.datetime.today().weekday()
