@@ -75,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tracker.wsgi.application'
 
-SESSION_COOKIE_AGE = 1800
+SESSION_COOKIE_AGE = 1800000000000
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -89,7 +89,7 @@ DATABASES = {
        'NAME': 'Adroll',
        'USER': 'root',
        'PASSWORD': 'Burger02',
-       'HOST': 'localhost',
+       'HOST': 'trackerdatabase.cpgigsq09loq.ap-south-1.rds.amazonaws.com',
        'PORT': '3306',
    }
 }
