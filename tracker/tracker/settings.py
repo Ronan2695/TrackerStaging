@@ -88,8 +88,8 @@ DATABASES = {
        'ENGINE': 'django.db.backends.mysql',
        'NAME': 'Adroll',
        'USER': 'root',
-       'PASSWORD': 'adroll123',
-       'HOST': 'trackerdatabase.cpgigsq09loq.ap-south-1.rds.amazonaws.com',
+       'PASSWORD': 'Burger02',
+       'HOST': 'localhost',
        'PORT': '3306',
    }
 }

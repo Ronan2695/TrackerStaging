@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
+$servername = "trackerdatabase.cpgigsq09loq.ap-south-1.rds.amazonaws.com";
 $username = "root";
-$password = "Burger02";
+$password = "adroll123";
 $dbname = "Adroll";
 $date = date('Y-m-d');
 $weekendDay = false;
