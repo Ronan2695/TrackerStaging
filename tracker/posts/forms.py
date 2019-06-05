@@ -146,7 +146,7 @@ class CreateArticle(forms.ModelForm):
     Task = forms.ChoiceField(choices=(task_empty), required=False, widget=forms.Select(attrs={'title':'Name of the task','style': 'width: 55% !important; resize: vertical !important;'}))
 
 
-    If_Others_Please_Specify = forms.CharField(initial=weeknumber, widget=forms.TextInput(attrs={'title':'If you entered the incident type as others, Please shed some light.','style': 'width: 55% !important; resize: vertical !important;'}))
+    If_Others_Please_Specify = forms.CharField(widget=forms.TextInput(attrs={'title':'If you entered the incident type as others, Please shed some light.','style': 'width: 55% !important; resize: vertical !important;'}))
 
     envi = (
     ('Production', 'Production'),
