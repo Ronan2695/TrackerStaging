@@ -210,6 +210,7 @@ class CreateArticle(forms.ModelForm):
 
     engineer= (
     ('Ajmeer Khaja', 'Ajmeer Khaja'),
+    ('Amudhavalli Krishnamurthi','Amudhavalli Krishnamurthi'),
     ('Aravind Suresh', 'Aravind Suresh'),
     ('Gowtham Perumalsamy', 'Gowtham Perumalsamy'),
     ('Hajamoideen Jailaudeen','Hajamoideen Jailaudeen'),

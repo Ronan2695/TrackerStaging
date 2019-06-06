@@ -32,8 +32,6 @@ def tracker_list(request):
 
     return render(request, 'posts/tracker_list.html', {'table': table})
 
-
-
 @login_required
 def tracker_view(request, track_id):
     #post = Post.objects.get(pk=post_id)
