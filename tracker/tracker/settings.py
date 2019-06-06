@@ -75,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tracker.wsgi.application'
 
-SESSION_COOKIE_AGE = 18000
+SESSION_COOKIE_AGE = 1800000000000
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
