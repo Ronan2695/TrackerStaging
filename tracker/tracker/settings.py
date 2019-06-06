@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&7f1+wlw6x%mmscfn&6#4%))it&uc4r=y$d!e5qo2a4eti_9n5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,6 +91,9 @@ DATABASES = {
        'PASSWORD': 'adroll123',
        'HOST': 'trackerdatabase.cpgigsq09loq.ap-south-1.rds.amazonaws.com',
        'PORT': '3306',
+       'OPTIONS': {
+            'sql_mode': 'traditional',
+      }
    }
 }
 
