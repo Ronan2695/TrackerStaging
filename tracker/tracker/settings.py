@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&7f1+wlw6x%mmscfn&6#4%))it&uc4r=y$d!e5qo2a4eti_9n5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -75,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tracker.wsgi.application'
 
-SESSION_COOKIE_AGE = 1800000000000
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
