@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+{% csrf_token %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -96,7 +96,7 @@ body {
 </style>
 </head>
 <body>
-
+<div class="container">
 <div class="navbar">
   <a href="{% url 'accounts:home' %}">Home</a>
   <a href="{% url 'updates:updates_list' %}">Process Updates</a>
@@ -112,7 +112,7 @@ body {
     </div>
   </div>
   <div class="dropdowns">
-    <button class="dropbtns">{{ user.get_username }}<i class="fa fa-caret-down"></i></button>
+    <button class="dropbtns">{{ user.get_full_name }}<i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
       <a href="{% url 'accounts:change_password' %}" style="font-size:95%;">Change Password</a>
       <a href="#" onClick="document.getElementById('logout').submit()">Logout</a>
