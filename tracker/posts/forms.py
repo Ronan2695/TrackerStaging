@@ -191,7 +191,7 @@ class CreateArticle(forms.ModelForm):
     source = (
     ('AWS', 'AWS'),
     ('Celery', 'Celery'),
-    ('DataDog', 'DataDog'),
+    ('Datadog', 'Datadog'),
     ('Icinga', 'Icinga'),
     ('Jenkins', 'Jenkins'),
     ('Logentries', 'Logentries'),
