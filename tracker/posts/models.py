@@ -31,7 +31,7 @@ class Post(models.Model):
     currenttime = curtime.hour
     if currenttime in (8,9,10,11,12,13,14,15):
         y = "APAC"
-    elif currenttime in (16,17,18,19,20,21,22,23):
+    elif currenttime in (16,17,18,19,20,21,22):
         y = "EMEA"
     else:
         y = "USA"
