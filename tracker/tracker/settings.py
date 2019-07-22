@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django_tables2',
     'bootstrap3',
     'bootstrap_datepicker_plus',
-    'devops'
 ]
 
 MIDDLEWARE = [
