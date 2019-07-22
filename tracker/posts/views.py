@@ -12,6 +12,7 @@ from .filters import TrackerFilter
 from .filters import PendingFilter
 from django_tables2.export.export import TableExport
 from .models import Schedules
+from .filters import UnattendedFilter
 
 @login_required
 def quicklinkview(request):
@@ -24,7 +25,7 @@ def quicklinkview(request):
 def tracker_list(request):
     table = TrackerTable(Post.objects.all(), order_by="-id")
     #filter = AFilter(request.GET, queryset=table)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': 100}).configure(table)
     export_format = request.GET.get('_export', None)
     if TableExport.is_valid_format(export_format):
         exporter = TableExport(export_format, table, exclude_columns=('editable','selection'))
@@ -71,7 +72,11 @@ def schedule(request):
     schedules = Schedules.objects.all()
     return render(request, 'posts/engschedule.html', {'schedules':schedules})
 
-
+@login_required
+def unattended(request):
+    unattended_list = Post.objects.all()
+    unattended_filter = UnattendedFilter(request.GET, queryset=unattended_list)
+    return render(request, 'posts/unattended.html', {'filter': unattended_filter})
 
 
 

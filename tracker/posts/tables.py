@@ -21,7 +21,6 @@ class TrackerTable(tables.Table):
         return mark_safe('<center><p style="color:blue;">&#9997;</p></center>')
 
 
-
     class Meta:
         model = models.Post
         template_name = 'django_tables2/semantic.html'

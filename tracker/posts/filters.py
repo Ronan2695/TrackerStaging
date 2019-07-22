@@ -21,3 +21,9 @@ class PendingFilter(django_filters.FilterSet):
         model = models.Post
         #fields = '__all__'
         fields = ['Status']
+
+class UnattendedFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.Post
+        #fields = '__all__'
+        fields = ['Resolved_by_Engineer']

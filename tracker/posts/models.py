@@ -67,7 +67,7 @@ class Post(models.Model):
     Status = models.CharField(max_length=100, null=True, blank=True, default='Resolved', db_column='status')
     Escalated_to = models.CharField(max_length=100, null=True, blank=True, default='NA', db_column='escalatedto')
     Resolved_by_Team = models.CharField(max_length=100, null=True, blank=False, default='Please select', db_column='resolvedteam')
-    Resolved_by_Engineer = models.CharField(max_length=30,null=False, default='noc', db_column='resolvedby')
+    Resolved_by_Engineer = models.CharField(max_length=30, null=False, default='noc', db_column='resolvedby')
     Resolution = models.TextField(null=True, blank=False, db_column='resolution')
     Comments = models.TextField(null=True, blank=False, db_column='comments')
     #Interval = models.IntegerField(blank=True, null=False, db_column='intrval')

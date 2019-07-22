@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^modify/(?P<track_id>[0-9]+)/$', views.tracker_edit, {}, name='modify'),
     url(r'^search/$', views.search, name='search'),
     url(r'^pending/', views.pending, name='pending'),
+    url(r'^unattended/', views.unattended, name='unattended'),
     url(r'^schedule/', views.schedule, name='schedule'),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

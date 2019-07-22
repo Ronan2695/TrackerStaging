@@ -102,6 +102,20 @@ body {
   <a href="{% url 'updates:updates_list' %}">Process Updates</a>
   <a href="{% url 'posts:schedule' %}">Engineer Schedule</a>
   <a href="{% url 'posts:quicklinks' %}">Quick Links</a>
+
+
+  <div class="dropdown">
+    <button class="dropbtn">Devops Tracker
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{% url 'devops:query_list' %}">Query list</a>
+      <a href="http://imeasure.iopex.com/posts/pending/?Status=pending">Filter by month</a>
+      <a href="http://imeasure.iopex.com/posts/unattended/?Resolved_by_Engineer=noc">Unattended Tickets</a>
+    </div>
+  </div>
+
+
   <div class="dropdown">
     <button class="dropbtn">Non PD alerts
       <i class="fa fa-caret-down"></i>
@@ -109,8 +123,12 @@ body {
     <div class="dropdown-content">
       <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
       <a href="http://imeasure.iopex.com/posts/pending/?Status=pending">Pending Tickets</a>
+      <a href="http://imeasure.iopex.com/posts/unattended/?Resolved_by_Engineer=noc">Unattended Tickets</a>
     </div>
   </div>
+
+
+
   <div class="dropdowns">
     <button class="dropbtns">{{ user.get_full_name }}<i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">

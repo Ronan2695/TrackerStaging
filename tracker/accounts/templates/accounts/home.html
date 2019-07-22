@@ -65,13 +65,16 @@ li.dropdown {
   <li><a href="{% url 'updates:updates_list' %}">Process Updates</a></li>
   <li><a href="{% url 'posts:schedule' %}">Engineer Schedule</a></li>
   <li><a href="{% url 'posts:quicklinks' %}">Quick Links</a></li>
+  <li><a href="{% url 'devops:query_list' %}">Devops Tracker</a></li>
   <li class="dropdown">
     <a href="#" class="dropbtn">Non PD alerts</a>
     <div class="dropdown-content">
       <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
-      <a href="http://localhost:8000/posts/pending/?Status=pending">Pending Tickets</a>
+      <a href="http://imeasure.iopex.com/posts/pending/?Status=pending">Pending Tickets</a>
+      <a href="http://imeasure.iopex.com/posts/unattended/?Resolved_by_Engineer=noc">Unattended Tickets</a>
     </div>
   </li>
+
 </ul>
 
 </body>

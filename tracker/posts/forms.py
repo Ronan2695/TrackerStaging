@@ -225,7 +225,7 @@ class CreateArticle(forms.ModelForm):
     ('Vijay Mohan', 'Vijay Mohan'),
 )
     engineer_empty = tuple(BLANK_CHOICE_DASH + list(engineer))
-    NOC_Engineer = forms.ChoiceField(choices=(engineer_empty),widget=forms.Select(attrs={'title':'The NOC Engineer who handled the incident','style': 'width: 55% !important; resize: vertical !important;'}))
+    NOC_Engineer = forms.ChoiceField(choices=(engineer_empty),widget=forms.Select(attrs={'id':'engid','onchange':'updateText("engid")','title':'The NOC Engineer who handled the incident','style': 'width: 55% !important; resize: vertical !important;'}))
 
     escalate=[('Yes','Yes'),('No','No')]
     #Escalated = forms.ChoiceField(choices=escalate, widget=forms.RadioSelect, initial='no')
@@ -315,7 +315,7 @@ class CreateArticle(forms.ModelForm):
     resby_empty = tuple(BLANK_CHOICE_DASH + list(resby))
     Resolved_by_Team = forms.ChoiceField(choices=(resby_empty), widget=forms.Select(attrs={'title':'Enter the Team which resolved the alert','style': 'width: 55% !important; resize: vertical !important;'}))
 
-    Resolved_by_Engineer = forms.CharField(widget=forms.TextInput(attrs={'title':'The Engineer who resolved the alert','style': 'width: 55% !important; resize: vertical !important;'}))
+    Resolved_by_Engineer = forms.CharField(widget=forms.TextInput(attrs={'id':'engidText','title':'The Engineer who resolved the alert','style': 'width: 55% !important; resize: vertical !important;'}))
 
     Description = forms.CharField(widget=forms.Textarea(attrs={'title':'Description of the alert','style': 'width: 55% !important; resize: vertical !important;'}))
 
