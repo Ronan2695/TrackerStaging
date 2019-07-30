@@ -15,7 +15,7 @@ class Post(models.Model):
 
     weeknumbers = date.today().isocalendar()[1]
     weeknumber = "Week {}".format(weeknumbers)
-    Week = models.CharField(max_length=20,blank=False, null=True, db_column='weekno',default=weeknumber)
+    Week = models.CharField(max_length=20, blank=False, null=True, db_column='weekno',default=weeknumber)
 
     today = datetime.date.today()
     x=calendar.month_name[today.month]
