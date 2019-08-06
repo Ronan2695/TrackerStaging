@@ -103,10 +103,18 @@ body {
   <a href="{% url 'posts:schedule' %}">Engineer Schedule</a>
   <a href="{% url 'posts:quicklinks' %}">Quick Links</a>
   <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
-  <a href="http://imeasure.iopex.com/posts/pending/?Status=pending">Pending Tickets</a>
 
 
-
+  <div class="dropdown">
+    <button class="dropbtn">Non PD alerts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{% url 'posts:tracker_list' %}" >Tracker</a>
+      <a href="http://imeasure.iopex.com/posts/pending/?Status=pending">Pending Tickets</a>
+      <a href="http://imeasure.iopex.com/posts/unattended/?Resolved_by_Engineer=noc">Unattended Tickets</a>
+    </div>
+  </div>
 
 
 
