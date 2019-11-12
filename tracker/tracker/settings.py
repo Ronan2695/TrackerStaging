@@ -1,4 +1,4 @@
-yooooooooooo
+yoooooooooooooooooooo
 """
 Django settings for tracker project.
 
