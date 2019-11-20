@@ -1,5 +1,3 @@
 __pycache__
 local_settings.py
 migrations
-tracker/tracker/settings.py 
-tracker/tracker/urls.py
