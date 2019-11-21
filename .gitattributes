@@ -1,2 +1,3 @@
 .gitignore filter=git-crypt diff=git-crypt
 tracker/tracker/settings.py filter=git-crypt diff=git-crypt
+tracker/posts/urls.py filter=git-crypt diff=git-crypt
