@@ -1,4 +1,3 @@
-yooooooooooooooooooooooo
 """
 WSGI config for tracker project.
 
